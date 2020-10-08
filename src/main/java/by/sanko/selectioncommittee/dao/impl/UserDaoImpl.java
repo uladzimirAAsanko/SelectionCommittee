@@ -51,13 +51,11 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean registration(String data) throws DaoException {
         ConnectionPool instance = ConnectionPool.getINSTANCE();
-        Connection connection = instance.getConnection();
         ResultSet resultSet = null;
-        PreparedStatement statement = null;
         StringTokenizer tokenizer = new StringTokenizer(data);
         String login = "";
-        try{
-            statement = connection.prepareStatement(ADD_USER);
+        try(Connection connection = instance.getConnection();
+            PreparedStatement statement = connection.prepareStatement(ADD_USER);){
             for(int i = 1; i <= 6; i++){
                 if(i == 4){
                     login = tokenizer.nextToken();
