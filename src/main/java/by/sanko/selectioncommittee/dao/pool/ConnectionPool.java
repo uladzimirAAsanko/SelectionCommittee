@@ -38,8 +38,7 @@ public class ConnectionPool {
     private ConnectionPool(){
         try {
             ResourceBundle resourceBundle = ResourceBundle.getBundle(FILE_DATABASE_CONFIG);
-            //String url = resourceBundle.getString(URL);
-            String url = "jdbc:mysql://localhost:3306/mydb";
+            String url = resourceBundle.getString(URL);
             String user = resourceBundle.getString(USER);
             String password = resourceBundle.getString(PASSWORD);
             String serverTimezone = resourceBundle.getString(TIMEZONE);
