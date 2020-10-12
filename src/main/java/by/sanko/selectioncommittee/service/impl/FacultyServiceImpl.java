@@ -10,6 +10,7 @@ import by.sanko.selectioncommittee.service.FacultyService;
 import java.util.List;
 
 public class FacultyServiceImpl implements FacultyService {
+
     @Override
     public List getAllFaculties() throws ServiceException {
         FacultyDao facultyDao = DaoFactory.getInstance().getFacultyDao();
