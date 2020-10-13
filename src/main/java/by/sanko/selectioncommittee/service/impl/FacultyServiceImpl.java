@@ -10,6 +10,10 @@ import by.sanko.selectioncommittee.service.FacultyService;
 import java.util.List;
 
 public class FacultyServiceImpl implements FacultyService {
+    private static final String TR = "<tr>";
+    private static final String TR_CLOSE = "</tr>";
+    private static final String TD_CLOSE = "</td>";
+    private static final String TD = "<td>";
 
     @Override
     public List getAllFaculties() throws ServiceException {
@@ -21,5 +25,18 @@ public class FacultyServiceImpl implements FacultyService {
             throw new ServiceException("Exception while getting a list of faculties",e);
         }
         return list;
+    }
+
+    @Override
+    public String transformListToString(List<Faculty> faculties){
+        StringBuilder builder = new StringBuilder();
+        for(Faculty faculty: faculties){
+            builder.append(TR).append(TD);
+            builder.append(faculty.getFacultyName());
+            builder.append(TD_CLOSE).append(TD);
+            builder.append(faculty.getFacultySite());
+            builder.append(TD_CLOSE).append(TR_CLOSE);
+        }
+        return builder.toString();
     }
 }

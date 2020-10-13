@@ -20,7 +20,8 @@ public class GetAllFacultiesCommand implements Command {
         List<Faculty> facultyList = null;
         try {
             facultyList = facultyService.getAllFaculties();
-            req.getSession().setAttribute(ATTRIBUTE,facultyList);
+            String answer = facultyService.transformListToString(facultyList);
+            req.getSession().setAttribute(ATTRIBUTE,answer);
             resp.sendRedirect(MappingJSP.WELCOME_PAGE);
         } catch (ServiceException exception) {
             resp.sendRedirect(MappingJSP.NOT_FOUND_COMMAND);

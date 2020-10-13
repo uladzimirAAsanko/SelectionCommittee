@@ -1,3 +1,4 @@
+<%@ page import="java.util.StringTokenizer" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
@@ -16,8 +17,6 @@ Welcome to selection Committee.
     <input type="submit"  value="Show faculties" >
 </form>
 <table border="1px">
-    <c:forEach var="faculty" items="${facultyList}">
-        <tr><td><c:out value="${faculty}"/></td></tr>
-    </c:forEach>
+    ${faculty}
 </table>
 </body>
