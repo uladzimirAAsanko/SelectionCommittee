@@ -16,12 +16,12 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class UserServiceImpl implements UserService {
 
     //TODO Create new class for registration data and solve 'new' problem
+    //TODO Make encrypt function using BCrypt
     @Override
     public boolean registerUser(String data) throws ServiceException {
         UserDao userDao = DaoFactory.getInstance().getUserDao();
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User authorizeUser(AuthorizationData data) throws ServiceException, UserNotFoundException {
+    public User authorizeUser(AuthorizationData data) throws ServiceException {
         UserDao userDao = DaoFactory.getInstance().getUserDao();
         UserValidator  validator = UserValidator.getInstance();
         User user = null;

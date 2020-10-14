@@ -17,7 +17,7 @@ import java.util.StringTokenizer;
 
 public class UserDaoImpl implements UserDao {
     private static final String SELECT_USER_BY_LOGIN = "SELECT users.first_name, users.last_name, users.fathers_name, users.login,users.password,users.email,roles.role_name,users.idusers FROM users JOIN roles ON roles.id_role=users.id_role WHERE login=?";
-    private static final  String ADD_USER = "INSERT users(first_name, last_name, fathers_name, login, password, email, id_role) VALUES(?,?,?,?,?,?);";
+    private static final  String ADD_USER = "INSERT users(first_name, last_name, fathers_name, login, password, email, id_role) VALUES(?,?,?,?,?,?,?);";
 
 
     @Override
@@ -51,7 +51,6 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean registration(String data) throws DaoException {
         ConnectionPool instance = ConnectionPool.getINSTANCE();
-        ResultSet resultSet = null;
         StringTokenizer tokenizer = new StringTokenizer(data);
         String login = "";
         try(Connection connection = instance.getConnection();
@@ -66,7 +65,7 @@ public class UserDaoImpl implements UserDao {
             }
             int role = Integer.parseInt(tokenizer.nextToken());
             statement.setInt(7,role);
-            resultSet = statement.executeQuery();
+            statement.execute();
         }catch (SQLException e){
             throw new DaoException("Error while registrarion",e);
         }

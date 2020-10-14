@@ -2,7 +2,7 @@ package by.sanko.selectioncommittee.entity;
 
 
 import java.util.Objects;
-
+//TODO MakeAllObjectsSerializable
 public class User {
     protected int userID;
     protected String firstName;

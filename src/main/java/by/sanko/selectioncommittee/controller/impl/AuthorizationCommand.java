@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AuthorizationCommand implements Command {
+    //TODO MakeAuthorization
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 

@@ -14,6 +14,7 @@ import java.util.List;
 
 public class GetAllFacultiesCommand implements Command {
     private static final String ATTRIBUTE = "faculty";
+
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         FacultyService facultyService = ServiceFactory.getInstance().getFacultyService();
