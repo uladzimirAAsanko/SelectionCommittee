@@ -4,7 +4,7 @@
     <title>Login</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/controller" name="loginForm" method="post" >
+<form action="${pageContext.request.contextPath}/controller" name="authorization" method="post" >
     <input type="hidden" name="command" value="authorization">
     Login:<br>
     <input type="text" name="login" value="">
@@ -12,7 +12,7 @@
     Password:<br>
     <input type="password" name="password" value="">
     <br>
-    ${errorLoginPassMessage}
+    ${message}
     <br>
     <input type="submit" value="Log in">
 </form>

@@ -2,6 +2,8 @@ package by.sanko.selectioncommittee.controller.impl;
 
 import by.sanko.selectioncommittee.controller.Command;
 import by.sanko.selectioncommittee.controller.MappingJSP;
+import by.sanko.selectioncommittee.entity.RegistrationData;
+import by.sanko.selectioncommittee.exception.RegistrationException;
 import by.sanko.selectioncommittee.exception.ServiceException;
 import by.sanko.selectioncommittee.service.ServiceFactory;
 import by.sanko.selectioncommittee.service.UserService;
@@ -24,9 +26,11 @@ public class RegistrationCommand implements Command {
     private static final String EMAIL = "email";
     private static final String ROLE = "role";
     private static final String SPACE = " ";
+    private static final String MESSAGE = "message";
 
     private static final Logger logger = LogManager.getLogger();
-    //TODO But not so imporatant make Data Transfer Object for Registration
+    //FIXME problem with new in dto
+
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
@@ -34,22 +38,24 @@ public class RegistrationCommand implements Command {
         boolean isRegister = false;
         String responseFile = MappingJSP.ERROR_PAGE;
         try{
-            StringBuilder data = new StringBuilder();
-            data.append(req.getParameter(FIRST_NAME)).append(SPACE);
-            data.append(req.getParameter(LAST_NAME)).append(SPACE);
-            data.append(req.getParameter(FATHERS_NAME)).append(SPACE);
-            data.append(req.getParameter(LOGIN)).append(SPACE);
-            data.append(req.getParameter(PASSWORD)).append(SPACE);
-            data.append(req.getParameter(EMAIL)).append(SPACE);
-            data.append(req.getParameter(ROLE));
-            isRegister = userService.registerUser(data.toString());
+            String firstName =  req.getParameter(FIRST_NAME);
+            String lastName = req.getParameter(LAST_NAME);
+            String fathersName = req.getParameter(FATHERS_NAME);
+            String login = req.getParameter(LOGIN);
+            String password = req.getParameter(PASSWORD);
+            String email = req.getParameter(EMAIL);
+            int role = Integer.parseInt(req.getParameter(ROLE));
+            RegistrationData data = new RegistrationData(firstName,lastName,fathersName,login,password,email,role);
+            isRegister = userService.registerUser(data);
+            if(isRegister){
+                responseFile = MappingJSP.SUCCESS_REGISTRATION;
+            }else{
+                responseFile = MappingJSP.FAIL_REGISTRATION;
+            }
+        }catch (RegistrationException e){
+            req.getSession().setAttribute(MESSAGE,e.getMessage());
         }catch (ServiceException e) {
             logger.log(Level.ERROR, "Error while registration command", e);
-        }
-        if(isRegister){
-            responseFile = MappingJSP.SUCCESS_REGISTRATION;
-        }else{
-            responseFile = MappingJSP.FAIL_REGISTRATION;
         }
         try {
             req.getRequestDispatcher(responseFile).forward(req, resp);

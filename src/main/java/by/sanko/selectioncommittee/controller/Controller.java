@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +31,7 @@ public class Controller extends HttpServlet {
         ConnectionPool.getINSTANCE().destroyPool();
     }
 
-    public void processRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void processRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String commandName = req.getParameter(COMMAND);
         logger.log(Level.INFO, "Command name - {}", commandName);
         CommandProvider provider = CommandProvider.getInstance();

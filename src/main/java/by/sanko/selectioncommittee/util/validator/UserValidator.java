@@ -1,4 +1,4 @@
-package by.sanko.selectioncommittee.service.validator;
+package by.sanko.selectioncommittee.util.validator;
 
 public class UserValidator {
     private static UserValidator instance;
