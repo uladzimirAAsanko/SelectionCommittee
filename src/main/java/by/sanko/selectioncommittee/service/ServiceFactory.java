@@ -1,6 +1,7 @@
 package by.sanko.selectioncommittee.service;
 
 
+import by.sanko.selectioncommittee.service.impl.EnrolleeServiceImpl;
 import by.sanko.selectioncommittee.service.impl.FacultyServiceImpl;
 import by.sanko.selectioncommittee.service.impl.UserServiceImpl;
 
@@ -9,6 +10,8 @@ public class ServiceFactory {
 
     private final UserService userService = new UserServiceImpl();
     private final FacultyService facultyService = new FacultyServiceImpl();
+
+    private final EnrolleeService enrolleeService = new EnrolleeServiceImpl();
 
     private ServiceFactory() {
     }
@@ -23,5 +26,9 @@ public class ServiceFactory {
 
     public FacultyService getFacultyService() {
         return facultyService;
+    }
+
+    public EnrolleeService getEnrolleeService() {
+        return enrolleeService;
     }
 }

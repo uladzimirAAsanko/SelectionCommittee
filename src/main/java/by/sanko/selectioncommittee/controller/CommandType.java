@@ -1,15 +1,15 @@
 package by.sanko.selectioncommittee.controller;
 
-import by.sanko.selectioncommittee.controller.impl.AuthorizationCommand;
-import by.sanko.selectioncommittee.controller.impl.GetAllFacultiesCommand;
-import by.sanko.selectioncommittee.controller.impl.RegistrationCommand;
-import by.sanko.selectioncommittee.controller.impl.WrongAction;
+import by.sanko.selectioncommittee.controller.impl.*;
 
 public enum  CommandType {
     //TODO Make Session
     WRONG_COMMAND(new WrongAction()),
     AUTHORIZATION(new AuthorizationCommand()),
+    AUTOLOGGING(new AutoLoginCommand()),
     REGISTRATION(new RegistrationCommand()),
+    REGISTRATIONENROLLEE(new RegistrationEnrollee()),
+    ADDEXAM(new AddExamCommand()),
     GETFACULTIES(new GetAllFacultiesCommand());
 
     private Command command;

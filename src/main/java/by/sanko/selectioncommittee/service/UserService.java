@@ -7,7 +7,10 @@ import by.sanko.selectioncommittee.exception.ServiceException;
 
 public interface UserService {
 
-    public boolean registerUser(RegistrationData data) throws ServiceException;
+    boolean registerUser(RegistrationData data) throws ServiceException;
 
-    public User authorizeUser(AuthorizationData data) throws ServiceException;
+    User authorizeUser(AuthorizationData data) throws ServiceException;
+
+    User getUserByID(int id) throws ServiceException;
+
 }

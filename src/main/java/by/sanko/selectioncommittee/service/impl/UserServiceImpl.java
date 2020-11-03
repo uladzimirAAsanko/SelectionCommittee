@@ -3,16 +3,19 @@ package by.sanko.selectioncommittee.service.impl;
 import by.sanko.selectioncommittee.dao.DaoFactory;
 import by.sanko.selectioncommittee.dao.UserDao;
 import by.sanko.selectioncommittee.entity.AuthorizationData;
+import by.sanko.selectioncommittee.entity.Exam;
 import by.sanko.selectioncommittee.entity.RegistrationData;
 import by.sanko.selectioncommittee.entity.User;
 import by.sanko.selectioncommittee.exception.*;
 import by.sanko.selectioncommittee.service.UserService;
 import by.sanko.selectioncommittee.util.security.BCryptHash;
+import by.sanko.selectioncommittee.util.validator.ExamValidator;
 import by.sanko.selectioncommittee.util.validator.UserValidator;
+
+import java.util.HashMap;
 
 
 public class UserServiceImpl implements UserService {
-
     @Override
     public boolean registerUser(RegistrationData data) throws ServiceException {
         UserDao userDao = DaoFactory.getInstance().getUserDao();
@@ -47,8 +50,20 @@ public class UserServiceImpl implements UserService {
             if(BCryptHash.checkPassword(data.getPassword(),hashedPassword)){
                 user = userDao.authorization(data);
             }
-        } catch (DaoException e) {
+        } catch (DaoException | IllegalArgumentException e) {
             throw new ServiceException("Exception while authorizing user",e);
+        }
+        return user;
+    }
+
+    @Override
+    public User getUserByID(int id) throws ServiceException {
+        UserDao userDao = DaoFactory.getInstance().getUserDao();
+        User user = null;
+        try {
+            user = userDao.getUserByID(id);
+        } catch (DaoException e) {
+            throw new ServiceException("Exception while getting user by ID",e);
         }
         return user;
     }

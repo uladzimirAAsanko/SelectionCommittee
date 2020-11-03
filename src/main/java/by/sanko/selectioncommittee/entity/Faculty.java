@@ -1,8 +1,9 @@
 package by.sanko.selectioncommittee.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Faculty {
+public class Faculty implements Serializable {
     private int facultyID;
     private String facultyName;
     private String facultySite;
@@ -28,7 +29,7 @@ public class Faculty {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Faculty)) return false;
         Faculty faculty = (Faculty) o;
         return getFacultyID() == faculty.getFacultyID() &&
                 Objects.equals(getFacultySite(), faculty.getFacultySite()) &&

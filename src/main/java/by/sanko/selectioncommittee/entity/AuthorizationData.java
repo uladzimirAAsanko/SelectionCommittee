@@ -1,6 +1,8 @@
 package by.sanko.selectioncommittee.entity;
 
-public class AuthorizationData {
+import java.io.Serializable;
+
+public class AuthorizationData implements Serializable {
     String login;
     String password;
 

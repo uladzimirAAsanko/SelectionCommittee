@@ -2,7 +2,10 @@ package by.sanko.selectioncommittee.controller.impl;
 
 import by.sanko.selectioncommittee.controller.Command;
 import by.sanko.selectioncommittee.controller.MappingJSP;
+import by.sanko.selectioncommittee.entity.AuthorizationData;
 import by.sanko.selectioncommittee.entity.RegistrationData;
+import by.sanko.selectioncommittee.entity.User;
+import by.sanko.selectioncommittee.entity.UsersRole;
 import by.sanko.selectioncommittee.exception.RegistrationException;
 import by.sanko.selectioncommittee.exception.ServiceException;
 import by.sanko.selectioncommittee.service.ServiceFactory;
@@ -13,11 +16,13 @@ import org.apache.logging.log4j.Logger;
 
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class RegistrationCommand implements Command {
+    private static final Logger logger = LogManager.getLogger();
     private static final String FIRST_NAME = "firstName";
     private static final String LAST_NAME = "lastName";
     private static final String FATHERS_NAME = "fathersName";
@@ -27,8 +32,8 @@ public class RegistrationCommand implements Command {
     private static final String ROLE = "role";
     private static final String SPACE = " ";
     private static final String MESSAGE = "message";
+    private static final String COOK_ATTRIBUTE = "user_id";
 
-    private static final Logger logger = LogManager.getLogger();
     //FIXME problem with new in dto
 
     @Override
@@ -48,7 +53,19 @@ public class RegistrationCommand implements Command {
             RegistrationData data = new RegistrationData(firstName,lastName,fathersName,login,password,email,role);
             isRegister = userService.registerUser(data);
             if(isRegister){
-                responseFile = MappingJSP.SUCCESS_REGISTRATION;
+                //FIXME DO NORMAL SESSIONS
+                try {
+                    User user = userService.authorizeUser(new AuthorizationData(login,password));
+                    Cookie sessionId = new Cookie(COOK_ATTRIBUTE, user.getUserID() + "");
+                    resp.addCookie(sessionId);
+                } catch (ServiceException e) {
+                    logger.log(Level.ERROR, "Error while authorization command", e);
+                }
+                if(role == UsersRole.ENROLLEE.ordinal()){
+                    responseFile = MappingJSP.ENROLLE_REGISTRATION;
+                }else{
+                    responseFile = MappingJSP.SUCCESS_REGISTRATION;
+                }
             }else{
                 responseFile = MappingJSP.FAIL_REGISTRATION;
             }

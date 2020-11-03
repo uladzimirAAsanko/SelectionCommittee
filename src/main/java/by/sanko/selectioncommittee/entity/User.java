@@ -1,25 +1,24 @@
 package by.sanko.selectioncommittee.entity;
 
 
+import java.io.Serializable;
 import java.util.Objects;
-//TODO MakeAllObjectsSerializable
-public class User {
+
+public class User implements Serializable {
     protected int userID;
     protected String firstName;
     protected String lastName;
     protected String fathersName;
     protected String login;
-    protected String password;
     protected String email;
     final UsersRole role;
 
-    public User(int userID, String firstName, String lastName, String fathersName, String login, String password, String email, UsersRole role) {
+    public User(int userID, String firstName, String lastName, String fathersName, String login, String email, UsersRole role) {
         this.userID = userID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.fathersName = fathersName;
         this.login = login;
-        this.password = password;
         this.email = email;
         this.role = role;
     }
@@ -44,9 +43,6 @@ public class User {
         return login;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
     public String getEmail() {
         return email;
@@ -59,14 +55,13 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof User)) return false;
         User user = (User) o;
         return userID == user.userID &&
                 firstName.equals(user.firstName) &&
                 lastName.equals(user.lastName) &&
                 fathersName.equals(user.fathersName) &&
                 login.equals(user.login) &&
-                password.equals(user.password) &&
                 Objects.equals(email, user.email) &&
                 role == user.role;
     }
@@ -79,7 +74,6 @@ public class User {
         result = 31 * result + lastName.hashCode();
         result = 31 * result + fathersName.hashCode();
         result = 31 * result + login.hashCode();
-        result = 31 * result + password.hashCode();
         result = 31 * result + email.hashCode();
 
         return result;

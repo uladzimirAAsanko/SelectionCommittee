@@ -2,10 +2,7 @@ package by.sanko.selectioncommittee.dao.impl;
 
 import by.sanko.selectioncommittee.dao.UserDao;
 import by.sanko.selectioncommittee.dao.pool.ConnectionPool;
-import by.sanko.selectioncommittee.entity.AuthorizationData;
-import by.sanko.selectioncommittee.entity.RegistrationData;
-import by.sanko.selectioncommittee.entity.User;
-import by.sanko.selectioncommittee.entity.UsersRole;
+import by.sanko.selectioncommittee.entity.*;
 import by.sanko.selectioncommittee.exception.DaoException;
 import by.sanko.selectioncommittee.exception.LoginIsBusyException;
 
@@ -16,10 +13,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDaoImpl implements UserDao {
-    private static final String SELECT_USER_BY_LOGIN = "SELECT users.first_name, users.last_name, users.fathers_name, users.login,users.password,users.email,roles.id_role,users.idusers FROM users JOIN roles ON roles.id_role=users.id_role WHERE login=?";
+    private static final String SELECT_USER_BY_LOGIN = "SELECT users.first_name, users.last_name, users.fathers_name, users.login,users.email,roles.id_role,users.idusers FROM users JOIN roles ON roles.id_role=users.id_role WHERE login=?";
     private static final String SELECT_USER_BY_EMAIL = "SELECT users.first_name, users.last_name, users.fathers_name, users.login,users.password,users.email,roles.id_role,users.idusers FROM users JOIN roles ON roles.id_role=users.id_role WHERE email=?";
     private static final  String ADD_USER = "INSERT users(first_name, last_name, fathers_name, login, password, email, id_role) VALUES(?,?,?,?,?,?,?);";
     private static final String  SELECT_PASSWORD_BY_LOGIN = "SELECT users.password FROM users WHERE login=?;";
+    private static final String SELECT_USER_BY_ID = "SELECT users.first_name, users.last_name, users.fathers_name, users.login,users.email,roles.id_role,users.idusers FROM users JOIN roles ON roles.id_role=users.id_role WHERE idusers=?";
 
     @Override
     public User authorization(AuthorizationData data) throws DaoException {
@@ -32,14 +30,13 @@ public class UserDaoImpl implements UserDao {
             resultSet = statement.executeQuery();
             while (resultSet.next()){
                 String login = data.getLogin();
-                int id = resultSet.getInt(8);
+                int id = resultSet.getInt(7);
                 String firstName = resultSet.getString(1);
                 String lastName = resultSet.getString(2);
                 String fathersName = resultSet.getString(3);
-                String password = resultSet.getString(5);
-                String email = resultSet.getString(6);
-                UsersRole role = UsersRole.values()[resultSet.getInt(7)];
-                user = new User(id,firstName,lastName,fathersName,login,password,email,role);
+                String email = resultSet.getString(5);
+                UsersRole role = UsersRole.values()[resultSet.getInt(6)];
+                user = new User(id,firstName,lastName,fathersName,login,email,role);
             }
         }catch (SQLException exception){
             throw new DaoException("Exception while authorization",exception);
@@ -50,6 +47,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean registration(RegistrationData data) throws DaoException {
         ConnectionPool instance = ConnectionPool.getINSTANCE();
+        boolean isUserRegistered = false;
         try(Connection connection = instance.getConnection();
             PreparedStatement statement = connection.prepareStatement(ADD_USER);){
             statement.setString(1,data.getFirstName());
@@ -65,11 +63,11 @@ public class UserDaoImpl implements UserDao {
             if(findUserEmail(data.getEmail())){
                 throw new LoginIsBusyException("Email is Busy");
             }
-            statement.execute();
+            isUserRegistered = statement.executeUpdate() > 0;
         }catch (SQLException e){
             throw new DaoException("Error while registrarion",e);
         }
-        return findUserByLogin(data.getLogin());
+        return isUserRegistered;
     }
 
     @Override
@@ -98,6 +96,32 @@ public class UserDaoImpl implements UserDao {
             throw new DaoException("Error while getting password by login",exception);
         }
         return hashedPassword;
+    }
+
+    @Override
+    public User getUserByID(int id) throws DaoException {
+        ConnectionPool instance = ConnectionPool.getINSTANCE();
+        Connection connection = instance.getConnection();
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        User user = null;
+        try{
+            statement = connection.prepareStatement(SELECT_USER_BY_ID);
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                String login = resultSet.getString(4);
+                String firstName = resultSet.getString(1);
+                String lastName = resultSet.getString(2);
+                String fathersName = resultSet.getString(3);
+                String email = resultSet.getString(5);
+                UsersRole role = UsersRole.values()[resultSet.getInt(6)];
+                user = new User(id,firstName,lastName,fathersName,login,email,role);
+            }
+        }catch (SQLException exception){
+            throw new DaoException("Exception while authorization",exception);
+        }
+        return user;
     }
 
     private boolean findUser(String data, String selectUserByEmail) throws DaoException {

@@ -1,13 +1,14 @@
 package by.sanko.selectioncommittee.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Enrollee extends User {
+public class Enrollee extends User implements Serializable {
     private int certificate;
     private String additionalInfo;
 
-    public Enrollee(int userID, String firstName, String lastName, String fathersName, String login, String password, String email, int certificate,String additionalInfo) {
-        super(userID, firstName, lastName, fathersName, login, password, email, UsersRole.ENROLLEE);
+    public Enrollee(int userID, String firstName, String lastName, String fathersName, String login, String email, int certificate,String additionalInfo) {
+        super(userID, firstName, lastName, fathersName, login, email, UsersRole.ENROLLEE);
          this.additionalInfo = additionalInfo;
          this.certificate = certificate;
     }
@@ -38,7 +39,7 @@ public class Enrollee extends User {
         return result;
     }
 
-    //доделать
+    //TODO FINISH UP
     @Override
     public String toString() {
         return "Enrollee{" +
@@ -47,7 +48,6 @@ public class Enrollee extends User {
                 ", lastName='" + lastName + '\'' +
                 ", fathersName='" + fathersName + '\'' +
                 ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", role=" + role +
                 '}';

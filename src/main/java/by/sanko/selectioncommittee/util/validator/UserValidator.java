@@ -1,16 +1,13 @@
 package by.sanko.selectioncommittee.util.validator;
 
 public class UserValidator {
-    private static UserValidator instance;
+    private static UserValidator instance = new UserValidator();
 
     private UserValidator() {
 
     }
 
     public static UserValidator getInstance() {
-        if (instance == null) {
-            instance = new UserValidator();
-        }
         return instance;
     }
 

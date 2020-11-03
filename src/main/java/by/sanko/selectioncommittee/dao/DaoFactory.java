@@ -1,5 +1,6 @@
 package by.sanko.selectioncommittee.dao;
 
+import by.sanko.selectioncommittee.dao.impl.EnrolleeDaoImpl;
 import by.sanko.selectioncommittee.dao.impl.FacultyDaoImpl;
 import by.sanko.selectioncommittee.dao.impl.UserDaoImpl;
 
@@ -8,6 +9,7 @@ public class DaoFactory {
 
     private final UserDao userDao = new UserDaoImpl();
     private final FacultyDao facultyDao = new FacultyDaoImpl();
+    private final EnrolleeDao enrolleeDao = new EnrolleeDaoImpl();
 
     private DaoFactory() {
     }
@@ -22,5 +24,9 @@ public class DaoFactory {
 
     public FacultyDao getFacultyDao() {
         return facultyDao;
+    }
+
+    public EnrolleeDao getEnrolleeDao() {
+        return enrolleeDao;
     }
 }

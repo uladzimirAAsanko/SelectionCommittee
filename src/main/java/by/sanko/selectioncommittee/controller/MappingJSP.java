@@ -8,5 +8,7 @@ public class MappingJSP {
     public static final String FAIL_REGISTRATION = "/jsp/fail_registration.jsp";
     public static final String FAIL_LOGIN = "/jsp/fail_login.jsp";
     public static final String ERROR_PAGE = "/jsp/error.jsp";
+    public static final String AUTHORIZATION = "/jsp/login.jsp";
+    public static final String ENROLLE_REGISTRATION = "/jsp/registration_enrollee.jsp";
 
 }

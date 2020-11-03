@@ -7,7 +7,7 @@
 <body>
 Welcome to selection Committee.
 
-<a href="${pageContext.request.contextPath}/jsp/login.jsp">Log in</a>
+<a href="${pageContext.request.contextPath}/jsp/auto_login.jsp">Log in</a>
 <a href="${pageContext.request.contextPath}/jsp/registration.jsp">Sign in</a>
 <br>
 <br><br>

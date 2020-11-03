@@ -1,7 +1,6 @@
 package by.sanko.selectioncommittee.entity;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class RegistrationData implements Serializable {
     private String firstName;
