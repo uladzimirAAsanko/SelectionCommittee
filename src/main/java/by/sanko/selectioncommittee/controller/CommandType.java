@@ -8,7 +8,9 @@ public enum  CommandType {
     AUTHORIZATION(new AuthorizationCommand()),
     AUTOLOGGING(new AutoLoginCommand()),
     REGISTRATION(new RegistrationCommand()),
-    REGISTRATIONENROLLEE(new RegistrationEnrollee()),
+    REGISTRATION_ADMIN(new RegistrationAdminCommand()),
+    REGISTRATIONENROLLEE(new RegistrationEnrolleeCommand()),
+    ADDADMINCODE(new AddAdminCodeCommand()),
     ADDEXAM(new AddExamCommand()),
     GETFACULTIES(new GetAllFacultiesCommand());
 

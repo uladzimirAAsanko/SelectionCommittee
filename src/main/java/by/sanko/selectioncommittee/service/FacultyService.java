@@ -6,6 +6,11 @@ import by.sanko.selectioncommittee.exception.ServiceException;
 import java.util.List;
 
 public interface FacultyService {
-    public List getAllFaculties() throws ServiceException;
-    public String transformListToString(List<Faculty> faculties);
+    List getAllFaculties() throws ServiceException;
+
+    String transformListToString(List<Faculty> faculties);
+
+    boolean registerAdmin(int userID,String code) throws ServiceException;
+
+    Faculty getFacultyByAdminID(int userID) throws ServiceException;
 }

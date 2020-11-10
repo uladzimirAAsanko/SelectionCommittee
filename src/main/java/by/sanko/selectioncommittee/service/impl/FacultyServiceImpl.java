@@ -39,4 +39,31 @@ public class FacultyServiceImpl implements FacultyService {
         }
         return builder.toString();
     }
+
+    @Override
+    public boolean registerAdmin(int userID,String code) throws ServiceException {
+        FacultyDao facultyDao = DaoFactory.getInstance().getFacultyDao();
+        Faculty faculty = null;
+        boolean isRegister = false;
+        try {
+            isRegister =  facultyDao.registerAdmin(userID,code);
+        } catch (DaoException e) {
+            throw new ServiceException("Exception while checking admins code",e);
+        }
+        return isRegister;
+    }
+
+    @Override
+    public Faculty getFacultyByAdminID(int userID) throws ServiceException {
+        FacultyDao facultyDao = DaoFactory.getInstance().getFacultyDao();
+        Faculty faculty = null;
+        int facultyID = -1;
+        try {
+            facultyID = facultyDao.getFacultyIdByUserID(userID);
+            faculty = facultyDao.getFacultyById(facultyID);
+        } catch (DaoException e) {
+            throw new ServiceException("Exception while getting faculty by admins code", e);
+        }
+        return faculty;
+    }
 }

@@ -38,7 +38,8 @@ public class RegistrationCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
+        String enc = req.getCharacterEncoding();
+        req.setCharacterEncoding("UTF-8");
         UserService userService = ServiceFactory.getInstance().getUserService();
         boolean isRegister = false;
         String responseFile = MappingJSP.ERROR_PAGE;
@@ -50,7 +51,7 @@ public class RegistrationCommand implements Command {
             String password = req.getParameter(PASSWORD);
             String email = req.getParameter(EMAIL);
             int role = Integer.parseInt(req.getParameter(ROLE));
-            RegistrationData data = new RegistrationData(firstName,lastName,fathersName,login,password,email,role);
+            RegistrationData data = new RegistrationData(firstName, lastName, fathersName, login, password, email, role);
             isRegister = userService.registerUser(data);
             if(isRegister){
                 //FIXME DO NORMAL SESSIONS
@@ -64,7 +65,11 @@ public class RegistrationCommand implements Command {
                 if(role == UsersRole.ENROLLEE.ordinal()){
                     responseFile = MappingJSP.ENROLLE_REGISTRATION;
                 }else{
-                    responseFile = MappingJSP.SUCCESS_REGISTRATION;
+                    if(role == UsersRole.ADMINISTRATOR.ordinal()){
+                        responseFile = MappingJSP.ADMIN_REGISTRATION;
+                    }else{
+                        responseFile = MappingJSP.SUCCESS_REGISTRATION;
+                    }
                 }
             }else{
                 responseFile = MappingJSP.FAIL_REGISTRATION;

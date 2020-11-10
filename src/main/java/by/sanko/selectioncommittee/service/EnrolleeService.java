@@ -1,5 +1,6 @@
 package by.sanko.selectioncommittee.service;
 
+import by.sanko.selectioncommittee.exception.DaoException;
 import by.sanko.selectioncommittee.exception.ServiceException;
 
 import java.util.HashMap;

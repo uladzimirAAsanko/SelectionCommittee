@@ -3,16 +3,13 @@ package by.sanko.selectioncommittee.service.impl;
 import by.sanko.selectioncommittee.dao.DaoFactory;
 import by.sanko.selectioncommittee.dao.UserDao;
 import by.sanko.selectioncommittee.entity.AuthorizationData;
-import by.sanko.selectioncommittee.entity.Exam;
 import by.sanko.selectioncommittee.entity.RegistrationData;
 import by.sanko.selectioncommittee.entity.User;
 import by.sanko.selectioncommittee.exception.*;
 import by.sanko.selectioncommittee.service.UserService;
 import by.sanko.selectioncommittee.util.security.BCryptHash;
-import by.sanko.selectioncommittee.util.validator.ExamValidator;
 import by.sanko.selectioncommittee.util.validator.UserValidator;
 
-import java.util.HashMap;
 
 
 public class UserServiceImpl implements UserService {
@@ -67,6 +64,4 @@ public class UserServiceImpl implements UserService {
         }
         return user;
     }
-
-
 }

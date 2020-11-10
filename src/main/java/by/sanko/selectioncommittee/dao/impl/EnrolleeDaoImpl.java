@@ -3,9 +3,6 @@ package by.sanko.selectioncommittee.dao.impl;
 import by.sanko.selectioncommittee.dao.EnrolleeDao;
 import by.sanko.selectioncommittee.dao.pool.ConnectionPool;
 import by.sanko.selectioncommittee.entity.Exam;
-import by.sanko.selectioncommittee.entity.Faculty;
-import by.sanko.selectioncommittee.entity.RegistrationData;
-import by.sanko.selectioncommittee.entity.User;
 import by.sanko.selectioncommittee.exception.DaoException;
 
 import java.sql.Connection;
@@ -19,6 +16,7 @@ public class EnrolleeDaoImpl implements EnrolleeDao {
     private static final String ADD_ENROLLEE = "INSERT abiturient_info(users_idusers, certificate,additional_info) VALUES(?,?,?);";
     private static final  String ADD_RESULT_OF_EXAM = "INSERT result_of_exam(result, exam_id_exam, abiturient_info_users_idusers) VALUES(?,?,?);";
     private static final String GET_ALL_RESULTS = "SELECT * FROM result_of_exam WHERE abiturient_info_users_idusers = ?";
+    private static final String FIND_RESULT_BY_EXAM = "SELECT * FROM result_of_exam WHERE abiturient_info_users_idusers = ? AND exam_id_exam = ?";
 
     @Override
     public boolean registration(int idUser, int certificate, String additionalInfo) throws DaoException {
@@ -41,6 +39,9 @@ public class EnrolleeDaoImpl implements EnrolleeDao {
         ConnectionPool instance = ConnectionPool.getINSTANCE();
         Connection connection = instance.getConnection();
         boolean isExamAdded = false;
+        if(isResultAlreadyAdded(userID,exam.getIndex())){
+            return false;
+        }
         try(PreparedStatement statement = connection.prepareStatement(ADD_RESULT_OF_EXAM)){
             statement.setInt(1,result);
             statement.setInt(2,exam.getIndex());
@@ -61,6 +62,7 @@ public class EnrolleeDaoImpl implements EnrolleeDao {
         PreparedStatement statement = null;
         try{
             statement = connection.prepareStatement(GET_ALL_RESULTS);
+            statement.setInt(1,userID);
             resultSet = statement.executeQuery();
             while (resultSet.next()){
                 int resultOfExam = resultSet.getInt(1);
@@ -73,5 +75,24 @@ public class EnrolleeDaoImpl implements EnrolleeDao {
             throw new DaoException("Exception while getting all faculties",exception);
         }
         return result;
+    }
+
+    @Override
+    public boolean isResultAlreadyAdded(int userID, int indexOfExam) throws DaoException {
+        ConnectionPool instance = ConnectionPool.getINSTANCE();
+        Connection connection = instance.getConnection();
+        PreparedStatement statement = null;
+        boolean isExamAdded = false;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(FIND_RESULT_BY_EXAM);
+            statement.setInt(1,userID);
+            statement.setInt(2,indexOfExam);
+            resultSet = statement.executeQuery();
+            isExamAdded = resultSet.next();
+        } catch (SQLException exception) {
+            throw new DaoException("Exception while checking is result added",exception);
+        }
+        return isExamAdded;
     }
 }

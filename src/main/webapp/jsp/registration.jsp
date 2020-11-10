@@ -38,8 +38,13 @@
     <p><select size="2"  name="role">
         <option disabled>Выберите героя</option>
         <option value="1">Администратор</option>
+        <option value="3">Гость</option>
         <option selected value="0">Абитуриент</option>
     </select></p>
+    <br> <br> <br>
+    Code for Admin
+    <br>
+    <input type="text" name="adminCode" value="">
     <input type="submit" value="Registration">
 
     <br>

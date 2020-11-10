@@ -2,9 +2,7 @@ package by.sanko.selectioncommittee.service.impl;
 
 import by.sanko.selectioncommittee.dao.DaoFactory;
 import by.sanko.selectioncommittee.dao.EnrolleeDao;
-import by.sanko.selectioncommittee.dao.UserDao;
 import by.sanko.selectioncommittee.entity.Exam;
-import by.sanko.selectioncommittee.entity.RegistrationData;
 import by.sanko.selectioncommittee.exception.DaoException;
 import by.sanko.selectioncommittee.exception.ServiceException;
 import by.sanko.selectioncommittee.service.EnrolleeService;

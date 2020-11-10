@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class RegistrationEnrollee implements Command {
+public class RegistrationEnrolleeCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private static final String CERTIFICATE_PARAM = "certificate";
     private static final String ADDITIONAL_PARAM = "additional";

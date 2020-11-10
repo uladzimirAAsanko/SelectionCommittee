@@ -1,6 +1,7 @@
 package by.sanko.selectioncommittee.controller.impl;
 
 import by.sanko.selectioncommittee.controller.Command;
+import by.sanko.selectioncommittee.controller.CommandType;
 import by.sanko.selectioncommittee.controller.MappingJSP;
 import by.sanko.selectioncommittee.exception.ServiceException;
 import by.sanko.selectioncommittee.service.EnrolleeService;
@@ -34,10 +35,8 @@ public class AddExamCommand implements Command {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         EnrolleeService enrolleeService = ServiceFactory.getInstance().getEnrolleeService();
         int userID = NOT.getID(req.getCookies());
-        //String result = req.getParameter(RESULT_PARAM);
-        //int typeOfExam = Integer.parseInt(req.getParameter(TYPE_OF_EXAM_PARAM));
-        String result = "40";
-        int typeOfExam = 8;
+        String result = req.getParameter(RESULT_PARAM);
+        int typeOfExam = Integer.parseInt(req.getParameter(TYPE_OF_EXAM_PARAM));
         HashMap<String,Boolean> map = null;
         try{
             map = enrolleeService.addExam(userID,typeOfExam,result);
@@ -63,6 +62,7 @@ public class AddExamCommand implements Command {
             req.getSession().setAttribute(ANSWER_PARAM,answer);
             //TODO It should redirect to page where it comes
             resp.sendRedirect(MappingJSP.SUCCESS_LOGIN);
+            //CommandType.AUTOLOGGING.getCommand().execute(req,resp);
         }
     }
 }

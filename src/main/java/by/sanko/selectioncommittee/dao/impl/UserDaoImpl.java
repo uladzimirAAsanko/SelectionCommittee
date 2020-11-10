@@ -19,6 +19,7 @@ public class UserDaoImpl implements UserDao {
     private static final String  SELECT_PASSWORD_BY_LOGIN = "SELECT users.password FROM users WHERE login=?;";
     private static final String SELECT_USER_BY_ID = "SELECT users.first_name, users.last_name, users.fathers_name, users.login,users.email,roles.id_role,users.idusers FROM users JOIN roles ON roles.id_role=users.id_role WHERE idusers=?";
 
+
     @Override
     public User authorization(AuthorizationData data) throws DaoException {
         ConnectionPool instance = ConnectionPool.getINSTANCE();
@@ -123,6 +124,7 @@ public class UserDaoImpl implements UserDao {
         }
         return user;
     }
+
 
     private boolean findUser(String data, String selectUserByEmail) throws DaoException {
         ConnectionPool instance = ConnectionPool.getINSTANCE();

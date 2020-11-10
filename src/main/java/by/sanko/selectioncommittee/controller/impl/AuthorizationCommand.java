@@ -2,6 +2,7 @@ package by.sanko.selectioncommittee.controller.impl;
 
 import by.sanko.selectioncommittee.controller.Command;
 import by.sanko.selectioncommittee.controller.MappingJSP;
+import by.sanko.selectioncommittee.controller.filler.LoginPageFiller;
 import by.sanko.selectioncommittee.entity.AuthorizationData;
 import by.sanko.selectioncommittee.entity.User;
 import by.sanko.selectioncommittee.entity.UsersRole;
@@ -42,18 +43,14 @@ public class AuthorizationCommand implements Command {
             user = userService.authorizeUser(data);
             Cookie sessionId = new Cookie(COOK_ATTRIBUTE, user.getUserID() + "");
             resp.addCookie(sessionId);
+            if(user == null){
+                req.getSession().setAttribute(MESSAGE,MESSAGE_TO_USER);
+            }else{
+                LoginPageFiller pageFiller = LoginPageFiller.getInstance();
+                responseFile = pageFiller.fillHomePage(req,user);
+            }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, "Error while authorization command", e);
-        }
-        if(user == null){
-            req.getSession().setAttribute(MESSAGE,MESSAGE_TO_USER);
-        }else{
-            responseFile = MappingJSP.SUCCESS_LOGIN;
-            req.getSession().setAttribute(FIRST_NAME,user.getFirstName());
-            req.getSession().setAttribute(LAST_NAME,user.getLastName());
-            req.getSession().setAttribute(FATHERS_NAME,user.getFathersName());
-            req.getSession().setAttribute(LOGIN,user.getLogin());
-            req.getSession().setAttribute(EMAIL,user.getEmail());
         }
         try {
             req.getRequestDispatcher(responseFile).forward(req, resp);

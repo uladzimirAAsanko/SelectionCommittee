@@ -18,4 +18,5 @@ public interface UserDao {
     String getHashedPasswordByLogin(String login) throws DaoException;
 
     User getUserByID(int id) throws DaoException;
+
 }

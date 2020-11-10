@@ -11,4 +11,6 @@ public interface EnrolleeDao {
     boolean addExam(int userID, Exam exam, int result) throws DaoException;
 
     List<String> getAllExams(int userID) throws DaoException;
+
+    boolean isResultAlreadyAdded(int userID, int indexOfExam) throws DaoException;
 }

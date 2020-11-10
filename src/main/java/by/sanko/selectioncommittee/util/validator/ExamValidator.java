@@ -1,7 +1,7 @@
 package by.sanko.selectioncommittee.util.validator;
 
 public class ExamValidator {
-    private static ExamValidator instance = new ExamValidator();
+    private static final ExamValidator instance = new ExamValidator();
 
     private ExamValidator() {
 

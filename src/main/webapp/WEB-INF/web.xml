@@ -10,7 +10,18 @@
         <servlet-name>Controller</servlet-name>
         <servlet-class>by.sanko.selectioncommittee.controller.Controller</servlet-class>
     </servlet>
-
+    <filter>
+        <filter-name>encodingfilter</filter-name>
+        <filter-class>by.sanko.selectioncommittee.controller.filter.EncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingfilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
         <url-pattern>/controller</url-pattern>

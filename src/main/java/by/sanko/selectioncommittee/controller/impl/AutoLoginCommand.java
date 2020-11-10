@@ -2,6 +2,7 @@ package by.sanko.selectioncommittee.controller.impl;
 
 import by.sanko.selectioncommittee.controller.Command;
 import by.sanko.selectioncommittee.controller.MappingJSP;
+import by.sanko.selectioncommittee.controller.filler.LoginPageFiller;
 import by.sanko.selectioncommittee.entity.User;
 import by.sanko.selectioncommittee.exception.ServiceException;
 import by.sanko.selectioncommittee.service.ServiceFactory;
@@ -33,21 +34,16 @@ public class AutoLoginCommand implements Command {
         UserService userService = ServiceFactory.getInstance().getUserService();
         String responseFile = MappingJSP.ERROR_PAGE;
         User user = null;
-
         try {
             user = userService.getUserByID(NOT.getID(req.getCookies()));
+            if(user == null){
+                responseFile = MappingJSP.AUTHORIZATION;
+            }else{
+                LoginPageFiller pageFiller = LoginPageFiller.getInstance();
+                responseFile = pageFiller.fillHomePage(req,user);
+            }
         } catch (ServiceException e) {
             logger.error("can't upload error page");
-        }
-        if(user == null){
-            responseFile = MappingJSP.AUTHORIZATION;
-        }else{
-            responseFile = MappingJSP.SUCCESS_LOGIN;
-            req.getSession().setAttribute(FIRST_NAME,user.getFirstName());
-            req.getSession().setAttribute(LAST_NAME,user.getLastName());
-            req.getSession().setAttribute(FATHERS_NAME,user.getFathersName());
-            req.getSession().setAttribute(LOGIN,user.getLogin());
-            req.getSession().setAttribute(EMAIL,user.getEmail());
         }
         try {
             req.getRequestDispatcher(responseFile).forward(req, resp);
