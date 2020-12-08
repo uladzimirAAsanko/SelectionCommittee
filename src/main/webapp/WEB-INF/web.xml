@@ -10,6 +10,16 @@
         <servlet-name>Controller</servlet-name>
         <servlet-class>by.sanko.selectioncommittee.controller.Controller</servlet-class>
     </servlet>
+
+
+    <filter>
+        <filter-name>authenticationFilter</filter-name> <!-- mandatory -->
+        <filter-class>by.sanko.selectioncommittee.controller.filter.AuthenticationFilter</filter-class> <!-- mandatory -->
+    </filter>
+    <filter-mapping>
+        <filter-name>authenticationFilter</filter-name> <!-- mandatory -->
+        <url-pattern>/*</url-pattern> <!-- either url-pattern or servlet-name is mandatory -->
+    </filter-mapping>
     <filter>
         <filter-name>encodingfilter</filter-name>
         <filter-class>by.sanko.selectioncommittee.controller.filter.EncodingFilter</filter-class>
@@ -22,6 +32,19 @@
         <filter-name>encodingfilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <filter>
+        <filter-name>locationFilter</filter-name>
+        <filter-class>by.sanko.selectioncommittee.controller.filter.LocationFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>locationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
         <url-pattern>/controller</url-pattern>

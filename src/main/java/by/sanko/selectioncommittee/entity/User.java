@@ -11,9 +11,12 @@ public class User implements Serializable {
     protected String fathersName;
     protected String login;
     protected String email;
+    protected String avatarDir;
+    protected UserStatus status;
+
     final UsersRole role;
 
-    public User(int userID, String firstName, String lastName, String fathersName, String login, String email, UsersRole role) {
+    public User(int userID, String firstName, String lastName, String fathersName, String login, String email, UsersRole role,String avatarDir,UserStatus status) {
         this.userID = userID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -21,6 +24,16 @@ public class User implements Serializable {
         this.login = login;
         this.email = email;
         this.role = role;
+        this.avatarDir = avatarDir;
+        this.status = status;
+    }
+
+    public void setAvatarDir(String avatarDir) {
+        this.avatarDir = avatarDir;
+    }
+
+    public UserStatus getStatus() {
+        return status;
     }
 
     public int getUserID() {
@@ -51,6 +64,8 @@ public class User implements Serializable {
     public UsersRole getRole() {
         return role;
     }
+
+    public String getAvatarDir(){return avatarDir;}
 
     @Override
     public boolean equals(Object o) {

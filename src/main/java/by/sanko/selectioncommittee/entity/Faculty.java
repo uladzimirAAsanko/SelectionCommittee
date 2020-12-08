@@ -7,11 +7,13 @@ public class Faculty implements Serializable {
     private int facultyID;
     private String facultyName;
     private String facultySite;
+    private String facultyAvatar;
 
-    public Faculty(int facultyID,String facultyName, String facultySite) {
+    public Faculty(int facultyID,String facultyName, String facultySite, String facultyAvatar) {
         this.facultyID = facultyID;
         this.facultySite = facultySite;
         this.facultyName = facultyName;
+        this.facultyAvatar = facultyAvatar;
     }
 
     public String getFacultyName() {
@@ -24,6 +26,10 @@ public class Faculty implements Serializable {
 
     public String getFacultySite() {
         return facultySite;
+    }
+
+    public String getFacultyAvatar() {
+        return facultyAvatar;
     }
 
     @Override

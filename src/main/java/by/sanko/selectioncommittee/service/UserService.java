@@ -13,4 +13,15 @@ public interface UserService {
 
     User getUserByID(int id) throws ServiceException;
 
+    boolean addPhotoToUser(int id, String photoDir) throws ServiceException;
+
+    String getUserPhoto(int id) throws ServiceException;
+
+    boolean updateUserInfo(String firstName, String lastName, String fathersName, int userID) throws ServiceException;
+
+    String updateUserPassword(String currentPassword, String newPassword, String userLogin) throws ServiceException;
+
+    boolean changeUserPassword(String data) throws ServiceException;
+
+    String setUserPassword(String password, int userID) throws ServiceException;
 }

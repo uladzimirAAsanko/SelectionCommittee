@@ -1,10 +1,7 @@
 package by.sanko.selectioncommittee.service;
 
 
-import by.sanko.selectioncommittee.service.impl.EnrolleeServiceImpl;
-import by.sanko.selectioncommittee.service.impl.FacultyServiceImpl;
-import by.sanko.selectioncommittee.service.impl.ModeratorServiceImpl;
-import by.sanko.selectioncommittee.service.impl.UserServiceImpl;
+import by.sanko.selectioncommittee.service.impl.*;
 
 public class ServiceFactory {
     private static final ServiceFactory instance = new ServiceFactory();
@@ -13,6 +10,7 @@ public class ServiceFactory {
     private final FacultyService facultyService = new FacultyServiceImpl();
     private final EnrolleeService enrolleeService = new EnrolleeServiceImpl();
     private final ModeratorService moderatorService = new ModeratorServiceImpl();
+    private final AuthenticationService authenticationService = new AuthenticationServiceImpl();
 
     private ServiceFactory() {
     }
@@ -34,4 +32,6 @@ public class ServiceFactory {
     }
 
     public ModeratorService getModeratorService(){return moderatorService;}
+
+    public AuthenticationService getAuthenticationService(){return authenticationService;}
 }

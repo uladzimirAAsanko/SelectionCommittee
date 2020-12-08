@@ -13,6 +13,8 @@ public class ExamValidator {
 
     public boolean validateExam(String exam){
         try {
+            if(Integer.parseInt(exam) < 0)
+                return false;
             if (Integer.parseInt(exam) > 100)
                 return false;
         }catch (NumberFormatException exception){

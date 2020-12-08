@@ -14,7 +14,7 @@ public class Administrator extends User implements Serializable {
         this.facultyID = facultyID;
     }
 
-    public Administrator(int userID, String firstName, String lastName, String fathersName, String login, String email) {
-        super(userID, firstName, lastName, fathersName, login, email, UsersRole.ADMINISTRATOR);
+    public Administrator(int userID, String firstName, String lastName, String fathersName, String login, String email, String photoDir, UserStatus status) {
+        super(userID, firstName, lastName, fathersName, login, email, UsersRole.ADMINISTRATOR,photoDir,status);
     }
 }

@@ -7,8 +7,8 @@ public class Enrollee extends User implements Serializable {
     private int certificate;
     private String additionalInfo;
 
-    public Enrollee(int userID, String firstName, String lastName, String fathersName, String login, String email, int certificate,String additionalInfo) {
-        super(userID, firstName, lastName, fathersName, login, email, UsersRole.ENROLLEE);
+    public Enrollee(int userID, String firstName, String lastName, String fathersName, String login, String email,String photoDir , int certificate,String additionalInfo, UserStatus status) {
+        super(userID, firstName, lastName, fathersName, login, email, UsersRole.ENROLLEE, photoDir,status);
          this.additionalInfo = additionalInfo;
          this.certificate = certificate;
     }

@@ -1,5 +1,7 @@
 package by.sanko.selectioncommittee.controller;
 
+import by.sanko.selectioncommittee.controller.command.Command;
+import by.sanko.selectioncommittee.controller.command.CommandProvider;
 import by.sanko.selectioncommittee.dao.pool.ConnectionPool;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;

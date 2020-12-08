@@ -2,7 +2,7 @@ package by.sanko.selectioncommittee.util.security;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
-public class BCryptHash {
+public final class BCryptHash {
     private static final int WORKLOAD = 12;
 
     public static String hashPassword(String passwordPlaintext) {

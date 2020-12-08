@@ -12,5 +12,10 @@
 </head>
 <body>
 <p> SUCCESS REGISTRATION))))))</p>
+
+<form name="log out" method="get" action="${pageContext.request.contextPath}/controller" autocomplete="on">
+    <input type="hidden"  name="command" value="logout" >
+    <input type="submit"  value="logout" >
+</form>
 </body>
 </html>

@@ -32,5 +32,10 @@
         <input type="submit"  value="add Code" >
     </form><br><br><br><br>
     <p>${answer}</p>
+    <br><br><br>
+    <form name="log out" method="get" action="${pageContext.request.contextPath}/controller" autocomplete="on">
+        <input type="hidden"  name="command" value="logout" >
+        <input type="submit"  value="logout" >
+    </form>
 </body>
 </html>

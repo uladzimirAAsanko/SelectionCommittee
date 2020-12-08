@@ -11,10 +11,10 @@
     <title>Auto logging</title>
 </head>
 <body>
-<form name="getFaculties" method="get" action="${pageContext.request.contextPath}/controller" autocomplete="on">
+<form name="autoLoffing" method="get" action="${pageContext.request.contextPath}/controller" autocomplete="on" id =1>
     <input type="hidden"  name="command" value="AUTOLOGGING" >
-    <input type="submit"  value="Show faculties" >
 </form>
+<script>document.getElementById("1").submit()</script>
 <b> Wait Please we try to auto login you</b>
 </body>
 </html>

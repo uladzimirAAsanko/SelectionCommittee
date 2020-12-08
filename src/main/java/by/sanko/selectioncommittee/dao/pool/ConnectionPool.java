@@ -16,8 +16,8 @@ import java.util.ResourceBundle;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
-public class ConnectionPool {
-    private static final String FILE_DATABASE_CONFIG = "database";
+public class ConnectionPool{
+    private static final String FILE_DATABASE_CONFIG = "config/database";
     private static final String URL = "url";
     private static final String POOL_SIZE = "poolSize";
     private static final String USER = "user";

@@ -14,4 +14,12 @@ public class MappingJSP {
     public static final String ADMIN_REGISTRATION = "/jsp/registration_admin.jsp";
     public static final String MODERATOR_WELCOME_PAGE = "/jsp/login_moderator.jsp";
     public static final String ADMINISTRATOR_WELCOME_PAGE = "/jsp/home_admin.jsp";
+    public static final String LOGIN_PAGE = "/jsp/login.jsp";
+    public static final String UPDATE_USER_INFO = "/jsp/update_user.jsp";
+    public static final String CHANGE_PASSWORD = "/jsp/change_password.jsp";
+    public static final String SET_NEW_PASS = "/jsp/set_new_pass.jsp";
+    public static final String REGISTRATION = "/jsp/registration.jsp";
+    public static final String EXAM_MANAGMENT = "/jsp/examManagment.jsp";
+    public static final String MODERATOR_TOOLS = "/jsp/moderatorManagment.jsp";
+    public static final String FACULTY_PAGE_TOOLS = "/jsp/facultyPage.jsp";
 }
