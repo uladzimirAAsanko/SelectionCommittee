@@ -240,6 +240,6 @@
         </div>
     </div>
 </section>
-
+<c:import url="${pageContext.request.contextPath}/jsp/fragment/footer.jsp"/>
 </body>
 </html>
