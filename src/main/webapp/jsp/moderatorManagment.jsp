@@ -20,6 +20,7 @@
 </head>
 <header> <c:import url="${pageContext.request.contextPath}/jsp/fragment/header.jsp"/></header>
 <body>
+<script src="${pageContext.request.contextPath}/js/buttonBlock.js"></script>
 <section class="content">
     <div class="container-fluid">
         <div class="card mt-3">

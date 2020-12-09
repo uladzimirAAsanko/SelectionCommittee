@@ -17,6 +17,7 @@
 </head>
 <header> <c:import url="${pageContext.request.contextPath}/jsp/fragment/header.jsp"/></header>
 <body>
+<script src="${pageContext.request.contextPath}/js/buttonBlock.js"></script>
 <form name="autoLogin" method="get" action="${pageContext.request.contextPath}/controller" autocomplete="on" id =1>
     <input type="hidden"  name="command" value="AUTOLOGGING" >
 </form>

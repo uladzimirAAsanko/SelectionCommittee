@@ -25,6 +25,12 @@ public enum  CommandType {
     DELETESTATEMENT(new DeleteStatementCommand()),
     DELETEEXAMFROMENROLLEE(new DeleteExamFromEnrolleeCommand()),
     GETFACULTIES(new GetAllFacultiesCommand()),
+    GETENROLLES(new GetAllEnroleesCommand()),
+    CLOSESTATEMENT(new CloseStatementCommand()),
+    SIGNUSERTOSTATEMENT(new SignUserToStatementCommand()),
+    GETFACBYNAME(new GetFacultyByNameCommand()),
+    GETGOODFACULTIES(new GetGoodFacultiesCommand()),
+    GETAVAILABLEFACULTIES(new GetFacultiesAvailableForUserCommand()),
     SWITCHLOCATION(new SwitchLocationCommand()),
     GETALLEXAMSFROMFACULTY(new GetAllExamsOfFacultyCommand()),
     GETALLUSERSEXAM(new GetAllExamsOfUserCommand());

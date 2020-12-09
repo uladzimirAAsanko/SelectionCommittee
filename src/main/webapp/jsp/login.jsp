@@ -16,7 +16,7 @@
 </head>
 <header> <c:import url="${pageContext.request.contextPath}/jsp/fragment/header.jsp"/></header>
 <body>
-
+<script src="${pageContext.request.contextPath}/js/buttonBlock.js"></script>
 <div class="container login-container">
 <div class="col-md-6 login-form-2">
     <h3><fmt:message key="login.title"/></h3>

@@ -12,9 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface FacultyService {
-    List getAllFaculties() throws ServiceException;
-
-    String transformListToString(List<Faculty> faculties);
+    List<Faculty> getAllFaculties() throws ServiceException;
 
     boolean registerAdmin(int userID,String code) throws ServiceException;
 
@@ -32,13 +30,17 @@ public interface FacultyService {
 
     boolean deleteStatement(int facultyID, int adminID) throws ServiceException;
 
+    boolean isStatementExist(int facultyID) throws ServiceException;
+
     Faculty getFacultyByID(int facultyID) throws ServiceException;
+
+    Faculty getFacultyByName(String facultyName) throws ServiceException;
 
     Map<Enrollee, Integer> getAllEnrolleSignedToFaculty(int facultyID) throws ServiceException;
 
     int calculateMinimalScoreToEnrollInFaculty(int facultyID) throws ServiceException;
 
-    Map<Enrollee,Integer> closeStatement(int facultyID) throws ServiceException;
+    HashMap<Enrollee, Integer> closeStatement(int facultyID) throws ServiceException;
 
     boolean finallyCloseStatement(int facultyID, HashMap<Integer,Boolean> finalUsers) throws ServiceException;
 }

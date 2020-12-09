@@ -24,7 +24,7 @@
 </head>
 <header> <c:import url="${pageContext.request.contextPath}/jsp/fragment/header.jsp"/></header>
 <body>
-
+<script src="${pageContext.request.contextPath}/js/buttonBlock.js"></script>
 <c:if test="${answer == null}">
     <div class="container login-container">
         <div class="col-md-6 login-form-2">

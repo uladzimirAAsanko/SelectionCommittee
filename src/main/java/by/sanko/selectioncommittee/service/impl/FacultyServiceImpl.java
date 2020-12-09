@@ -23,14 +23,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class FacultyServiceImpl implements FacultyService {
-    private static final String TR = "<tr>";
-    private static final String TR_CLOSE = "</tr>";
-    private static final String TD_CLOSE = "</td>";
-    private static final String TD = "<td>";
     private static final int minimalNededExam = 3;
 
     @Override
-    public List getAllFaculties() throws ServiceException {
+    public List<Faculty> getAllFaculties() throws ServiceException {
         FacultyDao facultyDao = DaoFactory.getInstance().getFacultyDao();
         List<Faculty> list = null;
         try{
@@ -39,19 +35,6 @@ public class FacultyServiceImpl implements FacultyService {
             throw new ServiceException("Exception while getting a list of faculties",e);
         }
         return list;
-    }
-
-    @Override
-    public String transformListToString(List<Faculty> faculties){
-        StringBuilder builder = new StringBuilder();
-        for(Faculty faculty: faculties){
-            builder.append(TR).append(TD);
-            builder.append(faculty.getFacultyName());
-            builder.append(TD_CLOSE).append(TD);
-            builder.append(faculty.getFacultySite());
-            builder.append(TD_CLOSE).append(TR_CLOSE);
-        }
-        return builder.toString();
     }
 
     @Override
@@ -196,11 +179,35 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
+    public boolean isStatementExist(int facultyID) throws ServiceException {
+        boolean isExist = false;
+        FacultyDao facultyDao = DaoFactory.getInstance().getFacultyDao();
+        try{
+            isExist = facultyDao.isFacultyHasStatement(facultyID);
+        }catch (DaoException e){
+            throw new ServiceException("Exception while checking statement by facultyID", e);
+        }
+        return isExist;
+    }
+
+    @Override
     public Faculty getFacultyByID(int facultyID) throws ServiceException {
         Faculty faculty = null;
         FacultyDao facultyDao = DaoFactory.getInstance().getFacultyDao();
         try{
             faculty = facultyDao.getFacultyById(facultyID);
+        } catch (DaoException e) {
+            throw new ServiceException("Exception while getting of faculty", e);
+        }
+        return faculty;
+    }
+
+    @Override
+    public Faculty getFacultyByName(String facultyName) throws ServiceException {
+        Faculty faculty = null;
+        FacultyDao facultyDao = DaoFactory.getInstance().getFacultyDao();
+        try{
+            faculty = facultyDao.getFacultyByName(facultyName);
         } catch (DaoException e) {
             throw new ServiceException("Exception while getting of faculty", e);
         }
@@ -215,7 +222,7 @@ public class FacultyServiceImpl implements FacultyService {
         try {
             statementID = facultyDao.getStatementIDByFacultyID(facultyID);
             List<Integer> enrolleeID = facultyDao.getAllUsersIDFromStatement(statementID);
-            if(enrolleeID.isEmpty()) {
+            if(enrolleeID != null && !enrolleeID.isEmpty()) {
                 answer = new HashMap<>();
                 EnrolleeService enrolleeService = ServiceFactory.getInstance().getEnrolleeService();
                 for (Integer id : enrolleeID) {
@@ -240,7 +247,7 @@ public class FacultyServiceImpl implements FacultyService {
         int minimalScore = 0;
         try {
             int maxStudents = facultyDao.getNumberOfMaxStudentsInStatement(facultyID);
-            if(maxStudents <= enrolleeSignedToFaculty.size()){
+            if(enrolleeSignedToFaculty != null && maxStudents <= enrolleeSignedToFaculty.size()){
                 SortedSet<Integer> values = new TreeSet<>(enrolleeSignedToFaculty.values());
                 for(Integer userScore: values){
                     maxStudents--;
@@ -256,7 +263,7 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public Map<Enrollee, Integer> closeStatement(int facultyID) throws ServiceException {
+    public HashMap<Enrollee, Integer> closeStatement(int facultyID) throws ServiceException {
         FacultyDao facultyDao = DaoFactory.getInstance().getFacultyDao();
         HashMap<Enrollee, Integer> remainder = null;
         try {
@@ -269,45 +276,26 @@ public class FacultyServiceImpl implements FacultyService {
             HashMap<Enrollee,Integer> allEnrollee = getAllEnrolleSignedToFaculty(facultyID);
             int numbersOfMaxStudent = facultyDao.getNumberOfMaxStudentsInStatement(facultyID);
             Faculty faculty = facultyDao.getFacultyById(facultyID);
+            int statementID = facultyDao.getStatementIDByFacultyID(facultyID);
             if(allEnrollee.size() <= numbersOfMaxStudent){
                 for(Map.Entry<Enrollee,Integer> entry : allEnrollee.entrySet()){
                     Enrollee enrollee = entry.getKey();
                     MessageCreator.writeSuccessfullEnrollment(enrollee.getEmail(), enrollee.getFirstName(), enrollee.getLastName(),enrollee.getLastName(),faculty.getFacultyName());
                 }
             }else{
-               int passingScore = calculateMinimalScoreToEnrollInFaculty(facultyID);
-               int iterator = numbersOfMaxStudent;
-               boolean isFirstTime = true;
-               int numberOfPlaces = 0;
-               remainder = new HashMap<>();
-               int statementID = facultyDao.getStatementIDByFacultyID(facultyID);
-               for(Map.Entry<Enrollee,Integer> entry : allEnrollee.entrySet()){
-                    iterator--;
-                    int scoreOfStudents = entry.getValue();
+               int index = 0;
+                for(Map.Entry<Enrollee,Integer> entry : allEnrollee.entrySet()){
                     Enrollee enrollee = entry.getKey();
-                    if(scoreOfStudents > passingScore){
+                    if(index < numbersOfMaxStudent){
                         MessageCreator.writeSuccessfullEnrollment(enrollee.getEmail(), enrollee.getFirstName(), enrollee.getLastName(),enrollee.getLastName(),faculty.getFacultyName());
-                    }else {
-                        if (passingScore == scoreOfStudents) {
-                            if(isFirstTime){
-                                numberOfPlaces = numbersOfMaxStudent - iterator;
-                                isFirstTime = false;
-                            }
-                            remainder.put(enrollee,numberOfPlaces);
-                        }else{
-                            facultyDao.deleteUserFromStatement(enrollee.getUserID(),statementID);
-                            MessageCreator.writeUnSuccessfullyEnrollment(enrollee.getEmail(), enrollee.getFirstName(), enrollee.getLastName(),enrollee.getLastName(),faculty.getFacultyName());
-                        }
+                    }else{
+                        facultyDao.deleteUserFromStatement(enrollee.getUserID(),statementID);
+                        MessageCreator.writeUnSuccessfullyEnrollment(enrollee.getEmail(), enrollee.getFirstName(), enrollee.getLastName(),enrollee.getLastName(),faculty.getFacultyName());
                     }
+                    index++;
                 }
-               if( remainder.size() == numberOfPlaces){
-                   for(Map.Entry<Enrollee,Integer> entry : remainder.entrySet()){
-                       Enrollee enrollee = entry.getKey();
-                       MessageCreator.writeSuccessfullEnrollment(enrollee.getEmail(), enrollee.getFirstName(), enrollee.getLastName(),enrollee.getLastName(),faculty.getFacultyName());
-                   }
-                  remainder = null;
-               }
             }
+            remainder = getAllEnrolleSignedToFaculty(facultyID);
         } catch (DaoException e) {
             throw new ServiceException("Exception while closing statement",e);
         }

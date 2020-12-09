@@ -11,6 +11,7 @@
     <title>Title</title>
 </head>
 <body>
+<script src="${pageContext.request.contextPath}/js/buttonBlock.js"></script>
 <form action="${pageContext.request.contextPath}/controller" method="post" name="registration">
     <input type="hidden" name="command" value="registration_admin">
     <br>

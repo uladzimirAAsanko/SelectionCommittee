@@ -21,6 +21,7 @@
 </head>
 <header> <c:import url="${pageContext.request.contextPath}/jsp/fragment/header.jsp"/></header>
 <body>
+<script src="${pageContext.request.contextPath}/js/buttonBlock.js"></script>
 <section class="content">
     <div class="container-fluid">
         <div class="card mt-3">
@@ -145,6 +146,24 @@
                                                 <input type="hidden" name="command" value="deleteStatement">
                                             </div>
                                         </form>
+                                        <form name="closeStatement" method="post"
+                                              action="${pageContext.request.contextPath}/controller" autocomplete="on">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <input class="profile-edit-btn btn btn-success" type="submit" value="close statement">
+                                                </div>
+                                                <input type="hidden" name="command" value="closeStatement">
+                                            </div>
+                                        </form>
+                                        <form name="getEnrolles" method="post"
+                                              action="${pageContext.request.contextPath}/controller" autocomplete="on">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <input class="profile-edit-btn btn btn-success" type="submit" value="get all enrollment">
+                                                </div>
+                                                <input type="hidden" name="command" value="getEnrolles">
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                                 <c:if test="${answer != null}">
@@ -154,6 +173,66 @@
                                 </c:if>
                             </div>
                         </div>
+                        </c:if>
+                        <c:if test="${userRole == 'ENROLLEE'}">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="tab-content profile-tab" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="homeEnr" role="tabpanel" aria-labelledby="home-tab">
+                                            <c:if test="${userResult != null}">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <h5> User result: ${userResult}</h5>
+                                                    </div>
+                                                </div>
+                                            </c:if>
+                                            <form name="getFaculties" method="post"
+                                                  action="${pageContext.request.contextPath}/controller" autocomplete="on">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input class="profile-edit-btn btn btn-success" type="submit" value="get all faculties">
+                                                    </div>
+                                                    <input type="hidden" name="command" value="getFaculties">
+                                                    <input type="hidden"  name="currentSite" value="${pageContext.request.requestURL}" >
+                                                </div>
+                                            </form>
+                                            <form name="getGoodFaculties" method="post"
+                                                  action="${pageContext.request.contextPath}/controller" autocomplete="on">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input class="profile-edit-btn btn btn-success" type="submit" value="get all good faculties for user">
+                                                    </div>
+                                                    <input type="hidden" name="command" value="getGoodFaculties">
+                                                </div>
+                                            </form>
+                                            <form name="getAvailableFaculties" method="post"
+                                                  action="${pageContext.request.contextPath}/controller" autocomplete="on">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input class="profile-edit-btn btn btn-success" type="submit" value="get all available faculties for user">
+                                                    </div>
+                                                    <input type="hidden" name="command" value="getAvailableFaculties">
+                                                </div>
+                                            </form>
+                                            <c:forEach items="${faculty}" var="exam">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <a href="${pageContext.request.contextPath}/controller?command=getFacByName&faculty=${exam.key}">${exam.key}</a>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p>${exam.value}</p>
+                                                    </div>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                    </div>
+                                    <c:if test="${answer != null}">
+                                        <div class="alert alert-primary" role="alert">
+                                                ${answer}
+                                        </div>
+                                    </c:if>
+                                </div>
+                            </div>
                         </c:if>
                     </div>
                 </div>

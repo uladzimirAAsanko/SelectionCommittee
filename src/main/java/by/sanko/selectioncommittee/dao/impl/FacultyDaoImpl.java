@@ -329,7 +329,7 @@ public class FacultyDaoImpl implements FacultyDao {
             statement.setInt(1,facultyID);
             resultSet = statement.executeQuery();
             while(resultSet.next()){
-                expiredDate = resultSet.getDate(2);
+                expiredDate = resultSet.getDate(4);
             }
         }catch (SQLException e){
             throw new DaoException("Exception while getting statement of faculty",e);

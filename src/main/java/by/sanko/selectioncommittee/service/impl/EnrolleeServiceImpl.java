@@ -156,10 +156,11 @@ public class EnrolleeServiceImpl implements EnrolleeService {
             userExam.remove(Exam.RUSSIAN);
             if (userExam.get(Exam.BELARUSIAN) != null){
                 availableFaculties.addAll(enrolleeDao.getFacultiesWithExam(Exam.BELARUSIAN));
-                userExam.remove(Exam.RUSSIAN);
+                userExam.remove(Exam.BELARUSIAN);
             }
             for(Map.Entry<Exam,Integer> entry : userExam.entrySet()){
-                availableFaculties.retainAll(enrolleeDao.getFacultiesWithExam(entry.getKey()));
+                List<Faculty> facWithExam = enrolleeDao.getFacultiesWithExam(entry.getKey());
+                availableFaculties.retainAll(facWithExam);
             }
             for(Faculty faculty : availableFaculties){
                 faculties.put(faculty,facultyService.calculateMinimalScoreToEnrollInFaculty(faculty.getFacultyID()));
@@ -205,7 +206,8 @@ public class EnrolleeServiceImpl implements EnrolleeService {
                     }
                 }
             }
-            isSigned = enrolleeDao.signUpToStatement(userID,facultyID);
+            int statementID = facultyDao.getStatementIDByFacultyID(facultyID);
+            isSigned = enrolleeDao.signUpToStatement(userID,statementID);
         }catch (DaoException e){
             throw new ServiceException("Exception while signing to faculty",e);
         }
@@ -251,12 +253,15 @@ public class EnrolleeServiceImpl implements EnrolleeService {
         int resultOfLanguage = 0;
         for(Map.Entry<Exam,Integer> entry : result.entrySet()){
             int value = entry.getValue();
-            if((entry.getKey() == Exam.BELARUSIAN || entry.getKey() == Exam.RUSSIAN) && value > resultOfLanguage){
-                userScore -= resultOfLanguage;
-                resultOfLanguage = value;
-                userScore += resultOfLanguage;
+            if((entry.getKey() == Exam.BELARUSIAN || entry.getKey() == Exam.RUSSIAN)){
+                if( value > resultOfLanguage) {
+                    userScore -= resultOfLanguage;
+                    resultOfLanguage = value;
+                    userScore += resultOfLanguage;
+                }
+            }else {
+                userScore += value;
             }
-            userScore += value;
         }
         return userScore;
     }

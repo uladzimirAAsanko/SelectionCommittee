@@ -22,4 +22,5 @@ public class MappingJSP {
     public static final String EXAM_MANAGMENT = "/jsp/examManagment.jsp";
     public static final String MODERATOR_TOOLS = "/jsp/moderatorManagment.jsp";
     public static final String FACULTY_PAGE_TOOLS = "/jsp/facultyPage.jsp";
+    public static final String FACULTY_PROFILE = "/jsp/facultyProfile.jsp";
 }

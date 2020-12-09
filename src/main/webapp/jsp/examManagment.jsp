@@ -27,6 +27,7 @@
 </header>
 
 <body>
+<script src="${pageContext.request.contextPath}/js/buttonBlock.js"></script>
 <form name="autoLogin" method="get" action="${pageContext.request.contextPath}/controller" autocomplete="on" id=1>
     <input type="hidden" name="command" value="getAllUsersExam">
 </form>

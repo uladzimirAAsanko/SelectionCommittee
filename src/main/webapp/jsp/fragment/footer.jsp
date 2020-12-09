@@ -19,7 +19,7 @@
             <div class="col-6 text-right">
                 <form name="switchLocation" method="post" action="${pageContext.request.contextPath}/controller" autocomplete="on">
                     <input type="hidden"  name="command" value="switchLocation" >
-                    <input type="hidden"  name="currentSite" value="${pageContext.request.requestURL}") >
+                    <input type="hidden"  name="currentSite" value="${pageContext.request.requestURL}">
                     <input class="btn btn-sm btn-secondary"  type="submit" value="${location}">
                 </form>
             </div>

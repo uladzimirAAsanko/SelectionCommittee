@@ -14,18 +14,25 @@
 <body>
 <fmt:message key="welcome.msg"/>
 
-<a href="${pageContext.request.contextPath}/jsp/auto_login.jsp">Log in</a>
-<a href="${pageContext.request.contextPath}/jsp/registration.jsp">Sign in</a>
-<a href="${pageContext.request.contextPath}/jsp/change_password.jsp">ForgotPassword?</a>
+
+<script src="${pageContext.request.contextPath}/js/buttonBlock.js"></script>
 <br>
 <br><br>
 <br>
 <form name="getFaculties" method="post" action="${pageContext.request.contextPath}/controller" autocomplete="on">
     <input type="hidden"  name="command" value="getFaculties" >
+    <input type="hidden"  name="currentSite" value="${pageContext.request.requestURL}" >
     <input type="submit"  value="Show faculties" >
 </form>
-<table border="1px">
-    ${faculty}
-</table>
+<c:forEach items="${faculty}" var="exam">
+    <div class="row">
+        <div class="col-md-6">
+            <a href="${pageContext.request.contextPath}/controller?command=getFacByName&faculty=${exam.key}">${exam.key}</a>
+        </div>
+        <div class="col-md-6">
+            <p>${exam.value}</p>
+        </div>
+    </div>
+</c:forEach>
 <c:import url="${pageContext.request.contextPath}/jsp/fragment/footer.jsp"/>
 </body>

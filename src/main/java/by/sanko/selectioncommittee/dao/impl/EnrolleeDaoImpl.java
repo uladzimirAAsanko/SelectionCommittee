@@ -21,7 +21,7 @@ public class EnrolleeDaoImpl implements EnrolleeDao {
     private static final String GET_ENROLLE = "SELECT * FROM abiturient_info JOIN users u on u.idusers = abiturient_info.users_idusers WHERE users_idusers = ?;";
     private static final String FIND_RESULT_BY_EXAM = "SELECT * FROM result_of_exam WHERE abiturient_info_users_idusers = ? AND exam_id_exam = ?";
     private static final String FIND_ALL_FACULTIES = "SELECT * FROM faculty;";
-    private static final String FIND_ALL_FACULTIES_WITH_THIS_EXAM = "SELECT * FROM mydb.faculty_has_exam WHERE exam_id_exam=?;";
+    private static final String FIND_ALL_FACULTIES_WITH_THIS_EXAM = "SELECT faculty_id_faculty,faculty_name,site,faculty.avatar_picture  FROM mydb.faculty_has_exam JOIN faculty ON faculty.id_faculty = faculty_has_exam.faculty_id_faculty WHERE exam_id_exam=?;";
     private static final String ADD_ABITURIENT_TO_STATEMENT = "INSERT statement_has_abiturient(statement_id_statement, abiturient_id_abiturient) VALUES (?,?);";
     private static final String DELETE_ABITURIENT_FROM_STATEMENT = "DELETE FROM statement_has_abiturient WHERE  abiturient_id_abiturient=? AND statement_id_statement=?;";
     private static final String DELETE_EXAM_FROM_ABITURIENT = "DELETE FROM result_of_exam WHERE abiturient_info_users_idusers=? AND exam_id_exam=?;";

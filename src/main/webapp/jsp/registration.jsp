@@ -14,7 +14,7 @@
 <header> <c:import url="${pageContext.request.contextPath}/jsp/fragment/header.jsp"/></header>
 <body>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
-
+<script src="${pageContext.request.contextPath}/js/buttonBlock.js"></script>
 
 <div class="container">
     <div class="row justify-content-center">
