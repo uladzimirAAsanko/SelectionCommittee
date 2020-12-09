@@ -39,7 +39,7 @@ public class Enrollee extends User implements Serializable {
         return result;
     }
 
-    //TODO FINISH UP
+
     @Override
     public String toString() {
         return "Enrollee{" +

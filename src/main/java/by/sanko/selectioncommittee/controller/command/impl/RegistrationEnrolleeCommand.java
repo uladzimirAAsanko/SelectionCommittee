@@ -33,16 +33,15 @@ public class RegistrationEnrolleeCommand implements Command {
         EnrolleeService enrolleeService = ServiceFactory.getInstance().getEnrolleeService();
         boolean isRegister = false;
         String responseFile = MappingJSP.ERROR_PAGE;
-
         String certificate =  req.getParameter(CERTIFICATE_PARAM);
         String additional = req.getParameter(ADDITIONAL_PARAM);
         int id = (Integer) req.getAttribute(ID_PARAMETER);
         try{
             isRegister = enrolleeService.registerUser(id,certificate,additional);
             if(isRegister){
-                responseFile = MappingJSP.SUCCESS_REGISTRATION;
+                responseFile = MappingJSP.SUCCESS_LOGIN;
             }else{
-                responseFile = MappingJSP.FAIL_REGISTRATION;
+                responseFile = MappingJSP.SUCCESS_LOGIN;
             }
         }catch (NotValidDataException e){
             responseFile = MappingJSP.ENROLLE_REGISTRATION;

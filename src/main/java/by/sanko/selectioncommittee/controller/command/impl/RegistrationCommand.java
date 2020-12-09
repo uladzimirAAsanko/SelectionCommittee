@@ -36,7 +36,6 @@ public class RegistrationCommand implements Command {
     private static final String MESSAGE = "message";
     private static final String COOK_ATTRIBUTE = "user_id";
 
-    //FIXME problem with new in dto
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -53,7 +52,7 @@ public class RegistrationCommand implements Command {
         String email = req.getParameter(EMAIL);
         int role = Integer.parseInt(req.getParameter(ROLE));
         try{
-            RegistrationData data = new RegistrationData(firstName, lastName, fathersName, login, password, email, role);
+            RegistrationData data = new RegistrationData(firstName, lastName, fathersName, login, password, email, UsersRole.GUEST.ordinal());
             isRegister = userService.registerUser(data);
             if(isRegister){
                 User user = userService.authorizeUser(new AuthorizationData(login,password));

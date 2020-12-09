@@ -32,9 +32,9 @@ public class RegistrationAdminCommand implements Command {
             logger.error("can't register admin");
         }
         if(result){
-            responseFile = MappingJSP.SUCCESS_REGISTRATION;
+            responseFile = MappingJSP.SUCCESS_LOGIN;
         }else{
-            responseFile = MappingJSP.FAIL_REGISTRATION;
+            responseFile = MappingJSP.ADMIN_REGISTRATION;
         }
         try {
             req.getRequestDispatcher(responseFile).forward(req, resp);

@@ -2,6 +2,7 @@ package by.sanko.selectioncommittee.service.impl;
 
 import by.sanko.selectioncommittee.dao.DaoFactory;
 import by.sanko.selectioncommittee.dao.UserDao;
+import by.sanko.selectioncommittee.dao.impl.UserDaoImpl;
 import by.sanko.selectioncommittee.entity.AuthorizationData;
 import by.sanko.selectioncommittee.entity.RegistrationData;
 import by.sanko.selectioncommittee.entity.User;
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean registerUser(RegistrationData data) throws ServiceException {
-        UserDao userDao = DaoFactory.getInstance().getUserDao();
+        UserDao userDao = UserDaoImpl.getInstance();
         UserValidator  validator = UserValidator.getInstance();
 
         if(!validator.validateLogin(data.getLogin()) || !validator.validatePassword(data.getPassword())){
@@ -63,7 +64,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User authorizeUser(AuthorizationData data) throws ServiceException {
-        UserDao userDao = DaoFactory.getInstance().getUserDao();
+        UserDao userDao = UserDaoImpl.getInstance();
         UserValidator  validator = UserValidator.getInstance();
         User user = null;
         if(!validator.validateLogin(data.getLogin()) || !validator.validatePassword(data.getPassword())){
@@ -88,7 +89,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByID(int id) throws ServiceException {
-        UserDao userDao = DaoFactory.getInstance().getUserDao();
+        UserDao userDao = UserDaoImpl.getInstance();
         User user = null;
         try {
             user = userDao.getUserByID(id);
@@ -101,7 +102,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean addPhotoToUser(int id, String photoDir) throws ServiceException {
         boolean isAdded = false;
-        UserDao userDao = DaoFactory.getInstance().getUserDao();
+        UserDao userDao = UserDaoImpl.getInstance();
         try {
             isAdded = userDao.addPhotoToUser(id,photoDir);
         }catch (DaoException e){
@@ -113,7 +114,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getUserPhoto(int id) throws ServiceException {
         String answer = "";
-        UserDao userDao = DaoFactory.getInstance().getUserDao();
+        UserDao userDao = UserDaoImpl.getInstance();
         try{
             answer = userDao.getUserPhoto(id);
         }catch (DaoException e){
@@ -125,7 +126,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateUserInfo(String firstName, String lastName, String fathersName, int userID) throws ServiceException {
         boolean isUpdated = false;
-        UserDao userDao = DaoFactory.getInstance().getUserDao();
+        UserDao userDao = UserDaoImpl.getInstance();
         try {
             isUpdated = userDao.updateUserInfo(firstName,lastName,fathersName,userID);
         } catch (DaoException e) {
@@ -139,7 +140,7 @@ public class UserServiceImpl implements UserService {
         if(currentPassword.equals(newPassword)){
             return ANSWER_OF_MAP_PASSWORDS_ARE_SAME;
         }
-        UserDao userDao = DaoFactory.getInstance().getUserDao();
+        UserDao userDao = UserDaoImpl.getInstance();
         UserValidator  validator = UserValidator.getInstance();
         if(!validator.validatePassword(newPassword)){
             return ANSWER_OF_MAP_PASSWORD_IS_NOT_VALID;
@@ -168,15 +169,11 @@ public class UserServiceImpl implements UserService {
     public boolean changeUserPassword(String data) throws ServiceException {
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(data);
-        UserDao userDao = DaoFactory.getInstance().getUserDao();
+        UserDao userDao = UserDaoImpl.getInstance();
         User user = null;
         boolean isChanged = false;
         try {
-            if (data.endsWith("@gmail.com")) {
-                user = userDao.getUserByEmail(data);
-            } else {
-                user = userDao.getUserByLogin(data);
-            }
+            user = userDao.getUserByEmail(data);
             if(user != null){
                 String email = user.getEmail();
                 String firstName = user.getFirstName();
@@ -198,7 +195,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String setUserPassword(String password, int userID) throws ServiceException {
         UserValidator  validator = UserValidator.getInstance();
-        UserDao userDao = DaoFactory.getInstance().getUserDao();
+        UserDao userDao = UserDaoImpl.getInstance();
         if(!validator.validatePassword(password)){
             return ANSWER_OF_MAP_PASSWORD_IS_NOT_VALID;
         }

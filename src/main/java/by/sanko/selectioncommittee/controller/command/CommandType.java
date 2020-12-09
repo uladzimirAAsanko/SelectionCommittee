@@ -3,7 +3,6 @@ package by.sanko.selectioncommittee.controller.command;
 import by.sanko.selectioncommittee.controller.command.impl.*;
 
 public enum  CommandType {
-    //TODO Make Session
     WRONG_COMMAND(new WrongAction()),
     AUTHORIZATION(new AuthorizationCommand()),
     AUTOLOGGING(new AutoLoginCommand()),

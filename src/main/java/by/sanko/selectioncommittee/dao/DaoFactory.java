@@ -7,7 +7,7 @@ import by.sanko.selectioncommittee.dao.impl.UserDaoImpl;
 public class DaoFactory {
     private static final DaoFactory instance = new DaoFactory();
 
-    private final UserDao userDao = new UserDaoImpl();
+    private final UserDao userDao = UserDaoImpl.getInstance();
     private final FacultyDao facultyDao = new FacultyDaoImpl();
     private final EnrolleeDao enrolleeDao = new EnrolleeDaoImpl();
 

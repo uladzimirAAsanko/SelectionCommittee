@@ -12,7 +12,9 @@ import java.util.List;
 public interface FacultyDao {
     List<Faculty> getAllSitesOfFaculties() throws DaoException;
 
-    boolean registerAdmin(int userID,String adminCode) throws DaoException;
+    boolean registerUser(int facultyID, int userID) throws DaoException;
+
+    int getIDbyCode( String adminCode) throws DaoException;
 
     Faculty getFacultyById(int facultyID) throws DaoException;
 

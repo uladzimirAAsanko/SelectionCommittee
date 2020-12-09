@@ -29,8 +29,7 @@ public class AuthorizationCommand implements Command {
     private static final String EMAIL = "email";
     private static final String COOK_ATTRIBUTE = "user_id";
     private static final Logger logger = LogManager.getLogger();
-    //TODO Make Mapping parameters class
-    //FIXME Replace Authorization data in 2 strings
+
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp){
         UserService userService = ServiceFactory.getInstance().getUserService();

@@ -35,4 +35,5 @@ public interface EnrolleeDao {
     int getStatementOfUserAttached(int userID) throws DaoException;
 
     boolean isUserRegisterToStatement(int userID) throws DaoException;
+
 }

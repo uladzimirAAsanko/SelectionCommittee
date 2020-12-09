@@ -1,9 +1,6 @@
 package by.sanko.selectioncommittee.dao;
 
-import by.sanko.selectioncommittee.entity.AuthorizationData;
-import by.sanko.selectioncommittee.entity.RegistrationData;
-import by.sanko.selectioncommittee.entity.User;
-import by.sanko.selectioncommittee.entity.UserStatus;
+import by.sanko.selectioncommittee.entity.*;
 import by.sanko.selectioncommittee.exception.DaoException;
 
 public interface UserDao {
@@ -36,5 +33,6 @@ public interface UserDao {
 
     boolean changeUserStatus(UserStatus status, String login) throws DaoException;
 
+    boolean changeUserRole(UsersRole role, int userID) throws DaoException;
 
 }

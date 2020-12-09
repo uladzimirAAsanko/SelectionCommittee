@@ -6,6 +6,7 @@ import by.sanko.selectioncommittee.dao.FacultyDao;
 import by.sanko.selectioncommittee.entity.Enrollee;
 import by.sanko.selectioncommittee.entity.Exam;
 import by.sanko.selectioncommittee.entity.Faculty;
+import by.sanko.selectioncommittee.entity.UsersRole;
 import by.sanko.selectioncommittee.exception.DaoException;
 import by.sanko.selectioncommittee.exception.ServiceException;
 import by.sanko.selectioncommittee.exception.ServiceImpl.ImpracticableActionException;
@@ -43,7 +44,16 @@ public class FacultyServiceImpl implements FacultyService {
         Faculty faculty = null;
         boolean isRegister = false;
         try {
-            isRegister =  facultyDao.registerAdmin(userID,code);
+            int facultyID =  facultyDao.getIDbyCode(code);
+            if(facultyID != -1){
+                isRegister = facultyDao.registerUser(facultyID,userID);
+            }
+            if(isRegister){
+                isRegister = DaoFactory.getInstance().getUserDao().changeUserRole(UsersRole.ADMINISTRATOR,userID);
+            }
+            if(isRegister){
+                isRegister = facultyDao.deleteAdminCode(code);
+            }
         } catch (DaoException e) {
             throw new ServiceException("Exception while checking admins code",e);
         }

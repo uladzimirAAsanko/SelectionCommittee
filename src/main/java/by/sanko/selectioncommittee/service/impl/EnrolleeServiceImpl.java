@@ -6,6 +6,7 @@ import by.sanko.selectioncommittee.dao.FacultyDao;
 import by.sanko.selectioncommittee.entity.Enrollee;
 import by.sanko.selectioncommittee.entity.Exam;
 import by.sanko.selectioncommittee.entity.Faculty;
+import by.sanko.selectioncommittee.entity.UsersRole;
 import by.sanko.selectioncommittee.exception.DaoException;
 import by.sanko.selectioncommittee.exception.ServiceException;
 import by.sanko.selectioncommittee.exception.ServiceImpl.ImpracticableActionException;
@@ -96,6 +97,9 @@ public class EnrolleeServiceImpl implements EnrolleeService {
         EnrolleeDao enrolleeDao = DaoFactory.getInstance().getEnrolleeDao();
         try {
             answer = enrolleeDao.registration(idUser,resultOfCertificate,additionalInfo);
+            if(answer){
+                answer = DaoFactory.getInstance().getUserDao().changeUserRole(UsersRole.ENROLLEE,idUser);
+            }
         } catch (DaoException e) {
             throw new ServiceException("Exception while adding exam to user",e);
         }

@@ -3,7 +3,6 @@ package by.sanko.selectioncommittee.entity;
 import java.io.Serializable;
 
 public class Administrator extends User implements Serializable {
-    //TODO make this class looks good
     private int facultyID;
 
     public int getFacultyID() {

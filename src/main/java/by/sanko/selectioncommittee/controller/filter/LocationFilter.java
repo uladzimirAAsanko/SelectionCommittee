@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class LocationFilter implements Filter {
     private static final String LOCATION_ATTRIBUTE = "location";
-    private static final String DEFAULT_LOCATION_ATTRIBUTE = "en";
+    private static final String DEFAULT_LOCATION_ATTRIBUTE = "en_US";
     private static final String code = "UTF-8";
 
     @Override

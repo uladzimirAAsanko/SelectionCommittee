@@ -56,11 +56,25 @@ public class FacultyDaoImpl implements FacultyDao {
     }
 
     @Override
-    public boolean registerAdmin(int userID,String adminCode) throws DaoException {
-        ConnectionPool instance = ConnectionPool.getINSTANCE();
-        int facultyID = -1;
-        ResultSet resultSet = null;
+    public boolean registerUser(int facultyID, int userID) throws DaoException {
         boolean isRegister = false;
+        ConnectionPool instance = ConnectionPool.getINSTANCE();
+        try(Connection connection = instance.getConnection();
+            PreparedStatement statement = connection.prepareStatement(ADD_ADMIN_INFO)){
+            statement.setInt(1,userID);
+            statement.setInt(2,facultyID);
+            isRegister =  statement.executeUpdate() > 0;
+        }catch (SQLException exception) {
+            throw new DaoException("Exception while getting all faculties",exception);
+        }
+        return isRegister;
+    }
+
+    @Override
+    public int getIDbyCode(String adminCode) throws DaoException {
+        ConnectionPool instance = ConnectionPool.getINSTANCE();
+        ResultSet resultSet = null;
+        int facultyID = -1;
         PreparedStatement statement = null;
         try(Connection connection = instance.getConnection()) {
             statement = connection.prepareStatement(SELECT_CODE_BY_CODE);
@@ -68,20 +82,11 @@ public class FacultyDaoImpl implements FacultyDao {
             resultSet = statement.executeQuery();
             while(resultSet.next()){
                 facultyID = resultSet.getInt(2);
-                statement = connection.prepareStatement(ADD_ADMIN_INFO);
-                statement.setInt(1,userID);
-                statement.setInt(2,facultyID);
-                isRegister =  statement.executeQuery().next();
             }
         } catch (SQLException exception) {
             throw new DaoException("Exception while finding admin code",exception);
-        }finally {
-            try {
-                statement.close();
-            } catch (SQLException | NullPointerException ignored) {
-            }
         }
-        return isRegister;
+        return facultyID;
     }
 
     @Override

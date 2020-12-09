@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDaoImpl implements UserDao {
+    private static UserDaoImpl userDao;
     private static final String SELECT_USER_BY_LOGIN = "SELECT users.first_name, users.last_name, users.fathers_name, users.login,users.email,roles.id_role,users.idusers,users.avatar_picture,users.id_status FROM users JOIN roles ON roles.id_role=users.id_role WHERE login=?;";
     private static final String SELECT_USER_BY_EMAIL = "SELECT users.first_name, users.last_name, users.fathers_name, users.login,users.email,roles.id_role,users.idusers,users.avatar_picture,users.id_status FROM users JOIN roles ON roles.id_role=users.id_role WHERE email=?";
     private static final String ADD_USER = "INSERT users(first_name, last_name, fathers_name, login, password, email, id_role, id_status) VALUES(?,?,?,?,?,?,?,?);";
@@ -24,7 +25,15 @@ public class UserDaoImpl implements UserDao {
     private static final String UPDATE_USER_STATUS = "UPDATE users SET id_status=? WHERE idusers = ?";
     private static final String UPDATE_USER_STATUS_BY_LOGIN = "UPDATE users SET id_status=? WHERE login = ?";
     private static final String CHANGE_USER_PHOTO = "UPDATE users SET password=? WHERE login = ?;";
+    private static final String CHANGE_USER_ROLE = "UPDATE users SET id_role=? WHERE idusers = ?;";
 
+    public static UserDaoImpl getInstance() {
+        if (userDao == null) {
+            userDao = new UserDaoImpl();
+        }
+
+        return userDao;
+    }
 
     @Override
     public User authorization(AuthorizationData data) throws DaoException {
@@ -249,6 +258,21 @@ public class UserDaoImpl implements UserDao {
             PreparedStatement statement = connection.prepareStatement(UPDATE_USER_STATUS_BY_LOGIN)){
             statement.setString(2,login);
             statement.setInt(1,status.ordinal());
+            isChanged = statement.executeUpdate() > 0;
+        }catch (SQLException e){
+            throw new DaoException("Exception while updating userStatus",e);
+        }
+        return isChanged;
+    }
+
+    @Override
+    public boolean changeUserRole(UsersRole role, int userID) throws DaoException {
+        ConnectionPool instance = ConnectionPool.getINSTANCE();
+        boolean isChanged = false;
+        try(Connection connection = instance.getConnection();
+            PreparedStatement statement = connection.prepareStatement(CHANGE_USER_ROLE)){
+            statement.setInt(2,userID);
+            statement.setInt(1,role.ordinal());
             isChanged = statement.executeUpdate() > 0;
         }catch (SQLException e){
             throw new DaoException("Exception while updating userStatus",e);
