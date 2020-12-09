@@ -24,7 +24,7 @@
 <script src="${pageContext.request.contextPath}/js/buttonBlock.js"></script>
     <div class="container login-container">
         <div class="col-md-6 login-form-2">
-            <h3>Set new password</h3>
+            <h3>Registrate Enrollee</h3>
             <form action="${pageContext.request.contextPath}/controller" method="post" name="registration">
                 <input type="hidden" name="command" value="registrationenrollee">
                 <div class="form-group">
