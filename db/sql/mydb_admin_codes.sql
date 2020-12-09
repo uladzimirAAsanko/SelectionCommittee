@@ -1,0 +1,1 @@
+INSERT INTO mydb.admin_codes (code, faculty_info_faculty_id_faculty) VALUES ('code4fmmf2', 1);

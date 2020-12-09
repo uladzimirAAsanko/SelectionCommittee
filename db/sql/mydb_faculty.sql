@@ -1,0 +1,10 @@
+INSERT INTO mydb.faculty (id_faculty, faculty_name, site, avatar_picture) VALUES (1, 'ФПМИ', 'http://fpmi.bsu.by/', null);
+INSERT INTO mydb.faculty (id_faculty, faculty_name, site, avatar_picture) VALUES (2, 'МЕХМАТ', 'https://mmf.bsu.by/ru/', null);
+INSERT INTO mydb.faculty (id_faculty, faculty_name, site, avatar_picture) VALUES (3, 'РАФ', 'https://rfe.bsu.by/', null);
+INSERT INTO mydb.faculty (id_faculty, faculty_name, site, avatar_picture) VALUES (4, 'КСИС', 'http://fksis.bsuir.by/', null);
+INSERT INTO mydb.faculty (id_faculty, faculty_name, site, avatar_picture) VALUES (5, 'ФМО', 'https://fir.bsu.by/be/', null);
+INSERT INTO mydb.faculty (id_faculty, faculty_name, site, avatar_picture) VALUES (6, 'ПГС', 'https://pgs.by/', null);
+INSERT INTO mydb.faculty (id_faculty, faculty_name, site, avatar_picture) VALUES (7, 'ФФСН', 'https://ffsn.by/', null);
+INSERT INTO mydb.faculty (id_faculty, faculty_name, site, avatar_picture) VALUES (8, 'АТФ', 'http://www.bntu.by/atf.html', null);
+INSERT INTO mydb.faculty (id_faculty, faculty_name, site, avatar_picture) VALUES (9, 'ФизФак БГУ', 'https://ffbsu.by/', null);
+INSERT INTO mydb.faculty (id_faculty, faculty_name, site, avatar_picture) VALUES (10, 'ФизФак БГУ1', 'https://ffbsu1.by/', null);

@@ -1,0 +1,15 @@
+INSERT INTO mydb.result_of_exam (result, exam_id_exam, abiturient_info_users_idusers, result_of_exam_id) VALUES (80, 1, 14, 1);
+INSERT INTO mydb.result_of_exam (result, exam_id_exam, abiturient_info_users_idusers, result_of_exam_id) VALUES (92, 2, 15, 14);
+INSERT INTO mydb.result_of_exam (result, exam_id_exam, abiturient_info_users_idusers, result_of_exam_id) VALUES (89, 3, 15, 16);
+INSERT INTO mydb.result_of_exam (result, exam_id_exam, abiturient_info_users_idusers, result_of_exam_id) VALUES (79, 0, 15, 18);
+INSERT INTO mydb.result_of_exam (result, exam_id_exam, abiturient_info_users_idusers, result_of_exam_id) VALUES (40, 1, 15, 19);
+INSERT INTO mydb.result_of_exam (result, exam_id_exam, abiturient_info_users_idusers, result_of_exam_id) VALUES (90, 2, 16, 21);
+INSERT INTO mydb.result_of_exam (result, exam_id_exam, abiturient_info_users_idusers, result_of_exam_id) VALUES (90, 1, 16, 22);
+INSERT INTO mydb.result_of_exam (result, exam_id_exam, abiturient_info_users_idusers, result_of_exam_id) VALUES (90, 0, 16, 23);
+INSERT INTO mydb.result_of_exam (result, exam_id_exam, abiturient_info_users_idusers, result_of_exam_id) VALUES (90, 3, 16, 24);
+INSERT INTO mydb.result_of_exam (result, exam_id_exam, abiturient_info_users_idusers, result_of_exam_id) VALUES (20, 0, 24, 25);
+INSERT INTO mydb.result_of_exam (result, exam_id_exam, abiturient_info_users_idusers, result_of_exam_id) VALUES (100, 2, 24, 26);
+INSERT INTO mydb.result_of_exam (result, exam_id_exam, abiturient_info_users_idusers, result_of_exam_id) VALUES (90, 3, 24, 27);
+INSERT INTO mydb.result_of_exam (result, exam_id_exam, abiturient_info_users_idusers, result_of_exam_id) VALUES (49, 0, 30, 29);
+INSERT INTO mydb.result_of_exam (result, exam_id_exam, abiturient_info_users_idusers, result_of_exam_id) VALUES (24, 1, 30, 30);
+INSERT INTO mydb.result_of_exam (result, exam_id_exam, abiturient_info_users_idusers, result_of_exam_id) VALUES (68, 2, 30, 31);

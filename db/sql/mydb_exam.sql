@@ -1,0 +1,11 @@
+INSERT INTO mydb.exam (id_exam, exam_name) VALUES (0, 'Русский язык');
+INSERT INTO mydb.exam (id_exam, exam_name) VALUES (1, 'Белорусский язык');
+INSERT INTO mydb.exam (id_exam, exam_name) VALUES (2, 'Математика');
+INSERT INTO mydb.exam (id_exam, exam_name) VALUES (3, 'Физика');
+INSERT INTO mydb.exam (id_exam, exam_name) VALUES (4, 'Химия');
+INSERT INTO mydb.exam (id_exam, exam_name) VALUES (5, 'Иностранный язык');
+INSERT INTO mydb.exam (id_exam, exam_name) VALUES (6, 'Всемирная История');
+INSERT INTO mydb.exam (id_exam, exam_name) VALUES (7, 'Биология');
+INSERT INTO mydb.exam (id_exam, exam_name) VALUES (8, 'География');
+INSERT INTO mydb.exam (id_exam, exam_name) VALUES (9, 'Обществоведение');
+INSERT INTO mydb.exam (id_exam, exam_name) VALUES (10, 'История Беларуси');

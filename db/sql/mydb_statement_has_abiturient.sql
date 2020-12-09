@@ -1,0 +1,2 @@
+INSERT INTO mydb.statement_has_abiturient (record_id, statement_id_statement, abiturient_id_abiturient) VALUES (10, 7, 16);
+INSERT INTO mydb.statement_has_abiturient (record_id, statement_id_statement, abiturient_id_abiturient) VALUES (11, 7, 24);
